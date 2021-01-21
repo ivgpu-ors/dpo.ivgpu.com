@@ -1,0 +1,12 @@
+{
+    "declaration": true,
+    "compilerOptions": {
+        "target": "esnext",
+        "strict": true,
+        "module": "esnext",
+        "jsx": "preserve",
+        "moduleResolution": "node",
+        "lib": [ "es2020" ],
+        "downlevelIteration": true
+    }
+}
