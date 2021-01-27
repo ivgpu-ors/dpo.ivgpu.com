@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'ivgpu',
         'passwords' => 'users',
     ],
 
@@ -36,6 +36,10 @@ return [
     */
 
     'guards' => [
+        'ivgpu' => [
+            'driver' => 'ivgpu',
+        ],
+
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
