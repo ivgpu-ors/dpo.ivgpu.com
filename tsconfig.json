@@ -7,6 +7,10 @@
         "jsx": "preserve",
         "moduleResolution": "node",
         "lib": [ "es2020" ],
-        "downlevelIteration": true
+        "downlevelIteration": true,
+        "baseUrl": "./resources/js",
+        "paths": {
+            "@backend/*": ["backend/*"]
+        }
     }
 }
