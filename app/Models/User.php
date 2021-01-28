@@ -9,15 +9,15 @@ use Illuminate\Notifications\Notifiable;
 /**
  * App\Models\User
  *
- * @property int $id
+ * @property string $id
  * @property string $last_name
  * @property string $first_name
  * @property string|null $middle_name
  * @property string|null $photo
- * @property string $phone
+ * @property string|null $phone
  * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
- * @property mixed|null $roles
+ * @property array|null $roles
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -43,6 +43,7 @@ class User extends Authenticatable
         'middle_name',
         'photo',
         'phone',
+        'roles',
         'email',
         'email_verified_at',
     ];
@@ -63,6 +64,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
+        'roles' => 'array',
         'email_verified_at' => 'datetime',
     ];
 
