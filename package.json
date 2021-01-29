@@ -3,7 +3,7 @@
     "scripts": {
         "dev": "npm run development",
         "development": "mix",
-        "watch": "mix watch",
+        "watch": "cross-env MIX_API_URL=http://localhost:3000/api mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
@@ -15,6 +15,7 @@
         "axios": "^0.21",
         "browser-sync": "^2.26.13",
         "browser-sync-webpack-plugin": "^2.2.2",
+        "cross-env": "^7.0.3",
         "laravel-mix": "^6.0.6",
         "laravel-mix-polyfill": "^3.0.0",
         "lodash": "^4.17.19",
