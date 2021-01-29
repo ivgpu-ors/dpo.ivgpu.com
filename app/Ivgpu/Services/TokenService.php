@@ -41,11 +41,18 @@ class TokenService
         return $this->decodeToken($token);
     }
 
+    public function saveToken(?string $token)
+    {
+        if (! is_null($token)) {
+            $this->provider->setToken($token);
+        }
+    }
+
     /**
      * @param string $token
      * @return array|null
      */
-    private function decodeToken(string $token): ?array
+    public function decodeToken(string $token): ?array
     {
         try {
             return $this->jwt->decode($token);
@@ -53,6 +60,8 @@ class TokenService
         catch(ExpiredException $e)
         {
             $new_token = $this->api->refreshToken($token);
+
+            $this->saveToken($new_token);
             return $new_token ? $this->decodeToken($new_token) : null;
         }
         catch (BeforeValidException $e)
