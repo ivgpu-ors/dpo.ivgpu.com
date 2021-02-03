@@ -9,12 +9,16 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+
+import useUser from "@backend/hooks/useUser";
 import User from "@backend/components/User.vue";
 
 export default defineComponent({
   components: { User },
   setup() {
+    const { load: loadUser } = useUser();
 
+    loadUser();
   }
 });
 </script>

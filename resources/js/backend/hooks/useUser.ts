@@ -12,9 +12,9 @@ const user = ref<User>({
   updated_at: new Date()
 });
 
-export default function useUser() {
-  const ready = ref(false);
+const ready = ref(false);
 
+export default function useUser() {
   async function load() {
     ready.value = false;
     user.value = await userApi.getCurrentUser();

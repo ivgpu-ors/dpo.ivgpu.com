@@ -12,8 +12,7 @@ import useUser from "@backend/hooks/useUser";
 
 export default defineComponent({
   setup() {
-    const { ready, user, load } = useUser();
-    load();
+    const { ready, user } = useUser();
 
     return { user, ready };
   }
