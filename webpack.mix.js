@@ -32,5 +32,5 @@ mix
 if (mix.inProduction()) {
   mix.version();
 } else {
-  mix.sourceMaps().browserSync(process.env.APP_URL);
+  mix.sourceMaps(false, 'source-map').browserSync(process.env.APP_URL);
 }
