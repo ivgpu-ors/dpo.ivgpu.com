@@ -1,5 +1,5 @@
 <template>
-  <div v-if="ready" class="flex items-center">
+  <div v-if="ready" class="flex items-center p-2">
     <img v-if="user.photo" :src="user.photo" alt="User photo" class="w-16 h-16 mr-2 rounded-full">
     <p>{{ user.first_name }} <br> {{ user.last_name }}</p>
   </div>
