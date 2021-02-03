@@ -1,0 +1,5 @@
+@layer base {
+    h1 {
+        @apply text-5xl pb-2 mb-4 border-b border-gray-300;
+    }
+}
