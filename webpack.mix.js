@@ -18,6 +18,7 @@ mix
   .ts('resources/js/backend/app.ts', 'public/js/backend').vue()
   .alias({
     '@backend': path.join(__dirname, 'resources/js/backend'),
+    '@svg': path.join(__dirname, 'resources/svg'),
     'vue$': path.join(__dirname, 'node_modules/vue/dist/vue.esm-bundler.js')
   })
   .sass('resources/css/app.scss', 'public/css').options({ postCss: [require('tailwindcss')] })
@@ -28,6 +29,18 @@ mix
     debug: false,
   })
   .extract();
+
+mix.webpackConfig({
+  module: {
+    rules: [{
+      test: /\.vue$/,
+      use: [{
+        loader: "vue-svg-inline-loader",
+        options: { /* ... */ }
+      }]
+    }]
+  }
+});
 
 if (mix.inProduction()) {
   mix.version();

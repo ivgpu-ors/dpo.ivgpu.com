@@ -8,9 +8,10 @@
         "moduleResolution": "node",
         "lib": [ "es2020" ],
         "downlevelIteration": true,
-        "baseUrl": "./resources/js",
+        "baseUrl": "./resources",
         "paths": {
-            "@backend/*": ["backend/*"]
+            "@backend/*": ["js/backend/*"],
+            "@svg/*": ["svg/*"]
         }
     }
 }
