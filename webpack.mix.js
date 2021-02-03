@@ -22,6 +22,7 @@ mix
     'vue$': path.join(__dirname, 'node_modules/vue/dist/vue.esm-bundler.js')
   })
   .sass('resources/css/app.scss', 'public/css').options({ postCss: [require('tailwindcss')] })
+  .sass('resources/css/backend/app.scss', 'public/css/backend').options({ postCss: [require('tailwindcss')] })
   .polyfill({
     enabled: true,
     useBuiltIns: "usage",
