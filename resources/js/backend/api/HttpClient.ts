@@ -4,7 +4,7 @@ export default abstract class HttpClient {
   protected readonly instance: AxiosInstance;
 
   public constructor() {
-    const baseURL = process.env.MIX_API_URL;
+    const baseURL = '/api';
     this.instance = axios.create({ baseURL, withCredentials: true });
   }
 
