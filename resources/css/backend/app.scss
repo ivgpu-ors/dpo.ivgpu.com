@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "~medium-editor/src/sass/medium-editor";
+@import "~medium-editor/src/sass/themes/mani";
+
 @import "../shared/ui";
 @import "typography";
 @import "nav";
