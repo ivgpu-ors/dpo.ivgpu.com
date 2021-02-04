@@ -2,27 +2,42 @@
   <label class="block mb-2">
     <slot/>
   </label>
-  <div class="mb-4 border border-gray-400 shadow block w-full rounded p-1 focus:ring focus:outline-none">
-    <div v-html="modelValue" ref="editorRef"></div>
+  <div ref="editorRef"
+       class="mb-4 border border-gray-400 shadow block w-full rounded p-1 focus:ring focus:outline-none">
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
+import { defineComponent, ref, onMounted, watchEffect } from 'vue';
 import * as MediumEditor from 'medium-editor';
 
 export default defineComponent({
   props: {
-    modelValue: { type: String }
+    modelValue: { type: String, default: '' }
   },
   emits: ['update:modelValue'],
-  setup() {
-    const editorRef = ref(null);
-    let editor = null;
+  setup(props, { emit }) {
+    const editorRef = ref<HTMLElement | null>(null);
+
+    const initEditor = (el: HTMLElement) => {
+      const editor = new MediumEditor(el);
+
+      editor.subscribe('editableInput', () => {
+        emit('update:modelValue', editorRef.value?.innerHTML);
+      });
+    };
 
     onMounted(() => {
-      editor = new MediumEditor(editorRef.value);
-      console.log(editor);
+      if (editorRef?.value) {
+        editorRef.value.innerHTML = props.modelValue;
+        initEditor(editorRef.value);
+      }
+    });
+
+    watchEffect(() => {
+      if (editorRef?.value && props.modelValue !== editorRef.value.innerHTML) {
+        editorRef.value.innerHTML = props.modelValue;
+      }
     });
 
     return {

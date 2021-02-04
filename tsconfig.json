@@ -6,7 +6,10 @@
         "module": "esnext",
         "jsx": "preserve",
         "moduleResolution": "node",
-        "lib": [ "es2020" ],
+        "lib": [
+          "es2020",
+          "dom"
+        ],
         "downlevelIteration": true,
         "baseUrl": "./resources",
         "paths": {
