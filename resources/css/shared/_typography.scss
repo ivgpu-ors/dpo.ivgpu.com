@@ -10,4 +10,12 @@
     h3 {
         @apply text-2xl pb-2 mb-4 text-gray-700;
     }
+
+    p {
+        @apply mb-3;
+
+        &:last-child {
+            @apply mb-0;
+        }
+    }
 }
