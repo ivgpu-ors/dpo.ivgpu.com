@@ -1,19 +1,19 @@
 <template>
   <div class="h-screen w-full">
-    <div class="w-72 bg-dark text-light fixed h-screen">
+    <div class="w-12 overflow-x-hidden md:w-72 bg-dark text-light fixed h-screen">
       <user />
       <nav>
-        <router-link to="/admin" class="flex items-center h-14 p-4 border-b border-gray-500">
-          <img svg-inline src="@svg/icons/dashboard.svg" class="icon mr-2">
-          <span>Dashboard</span>
-        </router-link>
-        <router-link to="/admin/courses" class="flex items-center h-14 p-4">
-          <img svg-inline src="@svg/icons/education.svg" class="icon mr-2">
+        <sidebar-link to="/admin">
+          <template #icon><img svg-inline src="@svg/icons/dashboard.svg"></template>
+          Dashboard
+        </sidebar-link>
+        <sidebar-link to="/admin/courses">
+          <template #icon><img svg-inline src="@svg/icons/education.svg"></template>
           Courses
-        </router-link>
+        </sidebar-link>
       </nav>
     </div>
-    <div class="ml-72 p-2">
+    <div class="ml-12 md:ml-72 p-2">
       <router-view></router-view>
     </div>
   </div>
@@ -24,9 +24,10 @@ import { defineComponent } from 'vue';
 
 import useUser from "@backend/hooks/useUser";
 import User from "@backend/components/User.vue";
+import SidebarLink from "@backend/components/SidebarLink.vue";
 
 export default defineComponent({
-  components: { User },
+  components: { SidebarLink, User },
   setup() {
     const { load: loadUser } = useUser();
 
