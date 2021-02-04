@@ -7,6 +7,10 @@
     <v-input id="duration" v-model="duration">Длительность курса</v-input>
     <v-input id="education_time" v-model="education_time">Понадобится для освоения</v-input>
     <v-html v-model="description">О курсе</v-html>
+    <v-html v-model="program">Программа курса</v-html>
+    <v-html v-model="conditions">Дополнительные технические условия, необходимые для прохождения программы</v-html>
+    <v-html v-model="target_audience">Целевая аудитория</v-html>
+    <v-input id="impl_form" v-model="impl_form">Форма реализации</v-input>
   </div>
 </template>
 
@@ -24,6 +28,10 @@ export default defineComponent({
     const duration = ref('');
     const education_time = ref('');
     const description = ref('');
+    const program = ref('');
+    const conditions = ref('');
+    const target_audience = ref('');
+    const impl_form = ref('');
 
     return {
       name,
@@ -31,7 +39,11 @@ export default defineComponent({
       end,
       duration,
       education_time,
-      description
+      description,
+      program,
+      conditions,
+      target_audience,
+      impl_form
     }
   }
 });
