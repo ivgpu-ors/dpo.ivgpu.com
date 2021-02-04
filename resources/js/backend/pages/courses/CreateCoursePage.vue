@@ -1,6 +1,9 @@
 <template>
   <div>
     <h2>Create course</h2>
+    <div class="sticky top-0 bg-white p-3 shadow-lg mb-6">
+      <v-button icon="save" @click="submit">Save</v-button>
+    </div>
     <v-input id="name" v-model="name">Название курса</v-input>
     <v-input id="date" v-model="start" type="date">Дата начала</v-input>
     <v-input id="date" v-model="end" type="date">Дата окончания</v-input>
@@ -18,9 +21,10 @@
 import { defineComponent, ref } from 'vue';
 import VInput from "@backend/components/form/VInput.vue";
 import VHtml from "@backend/components/form/VHtml.vue";
+import VButton from "@backend/components/form/VButton.vue";
 
 export default defineComponent({
-  components: { VHtml, VInput },
+  components: { VButton, VHtml, VInput },
   setup() {
     const name = ref('');
     const start = ref('');
@@ -33,6 +37,10 @@ export default defineComponent({
     const target_audience = ref('');
     const impl_form = ref('');
 
+    const submit = () => {
+      alert(1);
+    }
+
     return {
       name,
       start,
@@ -43,7 +51,8 @@ export default defineComponent({
       program,
       conditions,
       target_audience,
-      impl_form
+      impl_form,
+      submit
     }
   }
 });
