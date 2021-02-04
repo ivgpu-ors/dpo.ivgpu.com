@@ -13,14 +13,17 @@ import * as MediumEditor from 'medium-editor';
 
 export default defineComponent({
   props: {
-    modelValue: { type: String, default: '' }
+    modelValue: { type: String, default: '' },
+    placeholder: { type: String, default: 'Введите текст' }
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const editorRef = ref<HTMLElement | null>(null);
 
     const initEditor = (el: HTMLElement) => {
-      const editor = new MediumEditor(el);
+      const editor = new MediumEditor(el, {
+        placeholder: { text: props.placeholder }
+      });
 
       editor.subscribe('editableInput', () => {
         emit('update:modelValue', editorRef.value?.innerHTML);

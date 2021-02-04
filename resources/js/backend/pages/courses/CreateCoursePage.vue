@@ -23,7 +23,7 @@ export default defineComponent({
     const end = ref('');
     const duration = ref('');
     const education_time = ref('');
-    const description = ref('<p>Description example</p>');
+    const description = ref('');
 
     return {
       name,
