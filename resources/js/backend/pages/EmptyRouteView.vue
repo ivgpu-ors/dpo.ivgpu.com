@@ -1,5 +1,4 @@
 <template>
-  <h1>Courses</h1>
   <router-view></router-view>
 </template>
 
