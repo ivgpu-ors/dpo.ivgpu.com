@@ -1,16 +1,12 @@
 <template>
-  <router-link v-if="route" :to="route" class="py-2 px-4 bg-primary text-light rounded-md inline-flex hover:bg-primary-dark items-center">
+  <component :is="component" :to="route" class="py-2 px-4 bg-primary text-light rounded-md inline-flex hover:bg-primary-dark items-center">
     <icon :icon="icon" class="w-4 mr-3" />
     <slot />
-  </router-link>
-  <button v-else class="py-2 px-4 bg-primary text-light rounded-md inline-flex hover:bg-primary-dark items-center">
-    <icon :icon="icon" class="w-4 mr-3" />
-    <slot />
-  </button>
+  </component>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 import Icon from "@backend/components/icons/Icon.vue";
 
 export default defineComponent({
@@ -20,6 +16,11 @@ export default defineComponent({
   props: {
     route: { type: String },
     icon: { type: String }
+  },
+  setup(props) {
+    return {
+      component: computed(() => !!props.route ? 'router-link' : 'button')
+    }
   }
 });
 </script>
