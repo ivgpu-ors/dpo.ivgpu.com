@@ -20,6 +20,7 @@
         "laravel-mix-polyfill": "^3.0.0",
         "lodash": "^4.17.19",
         "medium-editor": "^5.23.3",
+        "nanoid": "^3.1.20",
         "postcss": "^8.1.14",
         "resolve-url-loader": "^3.1.0",
         "sass": "^1.32.5",

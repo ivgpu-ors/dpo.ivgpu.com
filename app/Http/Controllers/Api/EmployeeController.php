@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SuggestionRequest;
 use App\Models\Employee;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -19,6 +20,17 @@ class EmployeeController extends Controller
     {
         $employee = Employee::all();
         return response()->json($employee);
+    }
+
+    public function suggest(SuggestionRequest $request): JsonResponse
+    {
+        if ($request->get('s') != '') {
+            $employees = Employee::where('full_name', 'like', '%' . $request->get('s') . '%')->limit(10)->get();
+        } else {
+            $employees = Employee::limit(10)->get();
+        }
+
+        return response()->json($employees);
     }
 
     /**
