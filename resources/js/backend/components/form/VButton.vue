@@ -1,5 +1,9 @@
 <template>
-  <button class="py-2 px-4 bg-primary text-light rounded-md inline-flex hover:bg-primary-dark items-center">
+  <router-link v-if="route" :to="route" class="py-2 px-4 bg-primary text-light rounded-md inline-flex hover:bg-primary-dark items-center">
+    <icon :icon="icon" class="w-4 mr-3" />
+    <slot />
+  </router-link>
+  <button v-else class="py-2 px-4 bg-primary text-light rounded-md inline-flex hover:bg-primary-dark items-center">
     <icon :icon="icon" class="w-4 mr-3" />
     <slot />
   </button>
@@ -14,6 +18,7 @@ export default defineComponent({
     Icon,
   },
   props: {
+    route: { type: String },
     icon: { type: String }
   }
 });
