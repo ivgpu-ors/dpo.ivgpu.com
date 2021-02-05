@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="sticky top-0 bg-white p-3 shadow-lg mb-4 flex">
+    <div class="sticky top-0 bg-white p-3 shadow-lg mb-4 flex z-30">
       <v-button icon="save" @click="submit" class="ml-auto">Save</v-button>
     </div>
     <div class="p-3">
