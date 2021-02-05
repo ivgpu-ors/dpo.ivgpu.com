@@ -1,19 +1,21 @@
 <template>
   <div>
-    <h2>Create course</h2>
-    <div class="sticky top-0 bg-white p-3 shadow-lg mb-6">
-      <v-button icon="save" @click="submit">Save</v-button>
+    <div class="sticky top-0 bg-white p-3 shadow-lg mb-4 flex">
+      <v-button icon="save" @click="submit" class="ml-auto">Save</v-button>
     </div>
-    <v-input id="name" v-model="name">Название курса</v-input>
-    <v-input id="date" v-model="start" type="date">Дата начала</v-input>
-    <v-input id="date" v-model="end" type="date">Дата окончания</v-input>
-    <v-input id="duration" v-model="duration">Длительность курса</v-input>
-    <v-input id="education_time" v-model="education_time">Понадобится для освоения</v-input>
-    <v-html v-model="description">О курсе</v-html>
-    <v-html v-model="program">Программа курса</v-html>
-    <v-html v-model="conditions">Дополнительные технические условия, необходимые для прохождения программы</v-html>
-    <v-html v-model="target_audience">Целевая аудитория</v-html>
-    <v-input id="impl_form" v-model="impl_form">Форма реализации</v-input>
+    <div class="p-3">
+      <h2>Create course</h2>
+      <v-input id="name" v-model="name">Название курса</v-input>
+      <v-input id="date" v-model="start" type="date">Дата начала</v-input>
+      <v-input id="date" v-model="end" type="date">Дата окончания</v-input>
+      <v-input id="duration" v-model="duration">Длительность курса</v-input>
+      <v-input id="education_time" v-model="education_time">Понадобится для освоения</v-input>
+      <v-html v-model="description">О курсе</v-html>
+      <v-html v-model="program">Программа курса</v-html>
+      <v-html v-model="conditions">Дополнительные технические условия, необходимые для прохождения программы</v-html>
+      <v-html v-model="target_audience">Целевая аудитория</v-html>
+      <v-input id="impl_form" v-model="impl_form">Форма реализации</v-input>
+    </div>
   </div>
 </template>
 

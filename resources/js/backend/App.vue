@@ -13,7 +13,7 @@
         </sidebar-link>
       </nav>
     </div>
-    <div class="ml-10 lg:ml-72 p-2">
+    <div class="ml-10 lg:ml-72">
       <router-view></router-view>
     </div>
   </div>
