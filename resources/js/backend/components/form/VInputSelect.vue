@@ -6,12 +6,12 @@
 
     <div class="mb-4 border border-gray-400 shadow block w-full rounded p-1 absolute bg-white z-0"
          :class="{ ring: focus }">
-      <input :id="id" type="text" :value="input" @input="$emit('update:input', $event.target.value)" class="w-full"
-             @focus="focus = true" ref="searchInput">
+      <input :id="id" type="text" :value="search" @input="$emit('update:search', $event.target.value)" class="w-full"
+             @focus="focus = true">
       <ul v-if="focus">
         <li v-for="option in options" :key="option[idKey]" :value="option[idKey]"
             class="leading-6 cursor-pointer hover:bg-blue-200"
-            @click="select(option[idKey])">
+            @click="select(option)">
           {{ option[valueKey] }}
         </li>
       </ul>
@@ -20,19 +20,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted, ref } from 'vue';
+import { defineComponent, onMounted, onUnmounted, ref, PropType } from 'vue';
 import { nanoid } from "nanoid";
+
+type Option = {
+  [key: string]: string
+}
 
 export default defineComponent({
   props: {
-    options: { type: Array, required: true },
+    options: { type: Array as PropType<Option[]>, required: true },
     idKey: { type: String, default: 'id' },
     valueKey: { type: String, default: 'value' },
     modelValue: { type: [ Number, String ] },
-    input: { type: String },
+    search: { type: String },
   },
 
-  emits: ['update:modelValue', 'update:input'],
+  emits: ['update:modelValue', 'update:search'],
 
   setup(props, { emit }) {
     const focus = ref(false);
@@ -48,15 +52,15 @@ export default defineComponent({
 
     const searchInput = ref<HTMLInputElement | null>(null);
 
-    const select = (id: number | string) => {
+    const select = (option: Option) => {
       blurFocus();
-      input.value =
-      emit('update:modelValue', id);
+      emit('update:modelValue', option[props.idKey]);
     }
 
 
 
     return {
+      searchInput,
       id: nanoid(),
       focus,
       select,

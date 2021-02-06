@@ -6,10 +6,11 @@
     <div class="p-3">
       <h2>Create course</h2>
       <v-input id="name" v-model="name">Название курса</v-input>
-      <v-input-select v-model="leader_id" v-model:input="employeeInput" :options="employees" id-key="id"
+      <v-input-select v-model="leader_id" v-model:search="employeeInput" :options="employees" id-key="id"
                       value-key="full_name">
         Руководитель программы
       </v-input-select>
+      {{ leader_id }}
       <v-input id="start_date" v-model="start" type="date">Дата начала</v-input>
       <v-input id="end_date" v-model="end" type="date">Дата окончания</v-input>
       <v-input id="duration" v-model="duration">Длительность курса</v-input>
