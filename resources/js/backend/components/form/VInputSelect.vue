@@ -4,11 +4,14 @@
       <slot/>
     </label>
 
-    <div class="mb-4 border border-gray-400 shadow block w-full rounded p-1 absolute bg-white z-0"
-         :class="{ ring: focus }">
+    <div class="mb-4 border border-gray-400 shadow block w-full rounded p-1 absolute bg-white z-0 focus:outline-none"
+         :class="{ ring: focus }" tabindex="0" @focus="focus = true" @blur="focus = false">
+
       <label :for="id" v-if="selected" v-show="!focus" class="absolute">{{ selected[valueKey] }}</label>
-      <input :id="id" type="text" :value="search" @input="$emit('update:search', $event.target.value)" class="w-full"
-             @focus="focus = true">
+
+      <input :id="id" type="text" :value="search" @input="$emit('update:search', $event.target.value)"
+             class="w-full focus:outline-none" tabindex="-1" @focus="focus = true">
+
       <ul v-if="focus">
         <li v-for="option in options" :key="option[idKey]" :value="option[idKey]"
             class="leading-6 cursor-pointer hover:bg-blue-200"
@@ -16,6 +19,7 @@
           {{ option[valueKey] }}
         </li>
       </ul>
+
     </div>
   </div>
 </template>
@@ -33,7 +37,7 @@ export default defineComponent({
     options: { type: Array as PropType<Option[]>, required: true },
     idKey: { type: String, default: 'id' },
     valueKey: { type: String, default: 'value' },
-    modelValue: { type: [ Number, String ], required: true },
+    modelValue: { type: [Number, String], required: true },
     search: { type: String },
   },
 
