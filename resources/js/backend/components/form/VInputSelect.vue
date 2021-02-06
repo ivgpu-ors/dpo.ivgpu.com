@@ -6,6 +6,7 @@
 
     <div class="mb-4 border border-gray-400 shadow block w-full rounded p-1 absolute bg-white z-0"
          :class="{ ring: focus }">
+      <label :for="id" v-if="selected" v-show="!focus" class="absolute">{{ selected[valueKey] }}</label>
       <input :id="id" type="text" :value="search" @input="$emit('update:search', $event.target.value)" class="w-full"
              @focus="focus = true">
       <ul v-if="focus">
@@ -32,15 +33,24 @@ export default defineComponent({
     options: { type: Array as PropType<Option[]>, required: true },
     idKey: { type: String, default: 'id' },
     valueKey: { type: String, default: 'value' },
-    modelValue: { type: [ Number, String ] },
+    modelValue: { type: [ Number, String ], required: true },
     search: { type: String },
   },
 
   emits: ['update:modelValue', 'update:search'],
 
   setup(props, { emit }) {
+    const id = nanoid();
     const focus = ref(false);
+    const selected = ref<Option | undefined>(props.options.find(o => o[props.idKey] === props.modelValue));
+
     const blurFocus = () => focus.value = false;
+
+    const select = (option: Option) => {
+      blurFocus();
+      selected.value = option;
+      emit('update:modelValue', option[props.idKey]);
+    }
 
     onMounted(() => {
       document.addEventListener('click', blurFocus);
@@ -50,19 +60,10 @@ export default defineComponent({
       document.removeEventListener('click', blurFocus);
     });
 
-    const searchInput = ref<HTMLInputElement | null>(null);
-
-    const select = (option: Option) => {
-      blurFocus();
-      emit('update:modelValue', option[props.idKey]);
-    }
-
-
-
     return {
-      searchInput,
-      id: nanoid(),
+      id,
       focus,
+      selected,
       select,
     }
   }
