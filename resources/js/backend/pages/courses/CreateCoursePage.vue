@@ -10,8 +10,8 @@
                       value-key="full_name">
         Руководитель программы
       </v-input-select>
-      <v-input id="date" v-model="start" type="date">Дата начала</v-input>
-      <v-input id="date" v-model="end" type="date">Дата окончания</v-input>
+      <v-input id="start_date" v-model="start" type="date">Дата начала</v-input>
+      <v-input id="end_date" v-model="end" type="date">Дата окончания</v-input>
       <v-input id="duration" v-model="duration">Длительность курса</v-input>
       <v-input id="education_time" v-model="education_time">Понадобится для освоения</v-input>
       <v-html v-model="description">О курсе</v-html>
