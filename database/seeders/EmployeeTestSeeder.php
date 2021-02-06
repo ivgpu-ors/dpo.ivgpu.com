@@ -14,6 +14,6 @@ class EmployeeTestSeeder extends Seeder
      */
     public function run()
     {
-        Employee::factory(50)->create();
+        Employee::factory(150)->create();
     }
 }
