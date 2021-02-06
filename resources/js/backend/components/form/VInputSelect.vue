@@ -1,6 +1,6 @@
 <template>
   <div class="h-20 w-full relative" @click.stop="">
-    <label class="block mb-2" :for="id">
+    <label class="inline-block mb-2" :for="id">
       <slot/>
     </label>
 
@@ -50,9 +50,7 @@ export default defineComponent({
 
     const select = (id: number | string) => {
       blurFocus();
-      if (searchInput.value) {
-        // searchInput.value.value = props.options[id];
-      }
+      input.value =
       emit('update:modelValue', id);
     }
 

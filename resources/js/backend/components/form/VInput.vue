@@ -1,5 +1,5 @@
 <template>
-  <label :for="id" class="block mb-2">
+  <label :for="id" class="inline-block mb-2">
     <slot/>
   </label>
   <input :type="type" :id="id" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"

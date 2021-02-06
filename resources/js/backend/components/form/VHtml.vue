@@ -1,5 +1,5 @@
 <template>
-  <label class="block mb-2">
+  <label class="inline-block mb-2">
     <slot/>
   </label>
   <div ref="editorRef"
