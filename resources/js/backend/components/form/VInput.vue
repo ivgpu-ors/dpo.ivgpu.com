@@ -8,13 +8,20 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { nanoid } from "nanoid";
 
 export default defineComponent({
   props: {
-    id: { type: String, required: true },
     type: { type: String, default: 'text' },
     modelValue: { type: String }
   },
   emits: ['update:modelValue'],
+  setup() {
+    const id = nanoid();
+
+    return {
+      id
+    }
+  }
 });
 </script>
