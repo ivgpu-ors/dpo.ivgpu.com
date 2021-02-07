@@ -6,11 +6,7 @@
     <div class="p-3">
       <h2>Create course</h2>
       <v-input id="name" v-model="name">Название курса</v-input>
-      <v-input-select v-model="leader_id" v-model:search="employeeInput" :options="employees" id-key="id"
-                      value-key="full_name">
-        Руководитель программы
-      </v-input-select>
-      {{ leader_id }}
+      <select-employee v-model="leader_id">Руководитель программы</select-employee>
       <v-input id="start_date" v-model="start" type="date">Дата начала</v-input>
       <v-input id="end_date" v-model="end" type="date">Дата окончания</v-input>
       <v-input id="duration" v-model="duration">Длительность курса</v-input>
@@ -26,15 +22,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from 'vue';
+import { defineComponent, ref } from 'vue';
 import VInput from "@backend/components/form/VInput.vue";
 import VHtml from "@backend/components/form/VHtml.vue";
 import VButton from "@backend/components/form/VButton.vue";
-import useEmployee from '@backend/hooks/useEmployee';
 import VInputSelect from "@backend/components/form/VInputSelect.vue";
+import SelectEmployee from "@backend/components/SelectEmployee.vue";
 
 export default defineComponent({
-  components: { VInputSelect, VButton, VHtml, VInput },
+  components: { SelectEmployee, VInputSelect, VButton, VHtml, VInput },
   setup() {
     const name = ref('');
     const start = ref('');
@@ -48,20 +44,11 @@ export default defineComponent({
     const impl_form = ref('');
     const leader_id = ref(-1);
 
-    const employeeInput = ref('');
-    const { search, employees } = useEmployee();
-
-    watchEffect(() => {
-      search(employeeInput.value);
-    });
-
     const submit = () => {
       alert(1);
     }
 
     return {
-      employeeInput,
-      employees,
       leader_id,
       name,
       start,
