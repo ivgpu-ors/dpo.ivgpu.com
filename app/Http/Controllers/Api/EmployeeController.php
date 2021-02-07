@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\SuggestionRequest;
 use App\Models\Employee;
 use Exception;
@@ -39,7 +40,7 @@ class EmployeeController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(StoreEmployeeRequest $request): JsonResponse
     {
         $employee = Employee::create($request->post());
         return response()->json($employee);

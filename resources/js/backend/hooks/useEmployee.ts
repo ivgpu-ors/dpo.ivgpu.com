@@ -1,10 +1,11 @@
 import { ref } from "vue";
 import { employeeApi } from "@backend/api/EmployeeApi";
-import Employee from "@backend/api/interfaces/Employee";
+import { Employee, CreateParams } from "@backend/api/interfaces/Employee";
 
 export default function useUser() {
   const loading = ref(false);
   const employees = ref<Employee[]>([]);
+  const errors = ref([]);
 
   async function all() {
     loading.value = true;
@@ -18,10 +19,28 @@ export default function useUser() {
     loading.value = false;
   }
 
+  async function create(data: CreateParams): Promise<Employee | undefined> {
+    loading.value = true;
+
+    try {
+      const newEmployee = await employeeApi.create(data);
+      employees.value = [newEmployee];
+
+      return newEmployee
+    } catch (e) {
+      errors.value = e.response?.data?.errors;
+    } finally {
+      loading.value = false;
+    }
+
+  }
+
   return {
     loading,
-    search,
     employees,
-    all
+    errors,
+    search,
+    all,
+    create,
   }
 }
