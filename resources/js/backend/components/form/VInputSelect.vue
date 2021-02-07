@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted, ref, PropType } from 'vue';
+import { defineComponent, onMounted, onUnmounted, ref, PropType, computed } from 'vue';
 import { nanoid } from "nanoid";
 import VButton from "@backend/components/form/VButton.vue";
 
@@ -51,7 +51,6 @@ export default defineComponent({
   setup(props, { emit }) {
     const id = nanoid();
     const focus = ref(false);
-    const selected = ref<Option | undefined>(props.options.find(o => o[props.idKey] === props.modelValue));
     const inputRef = ref<HTMLInputElement | null>(null);
 
     const blurFocus = () => {
@@ -70,7 +69,6 @@ export default defineComponent({
 
     const select = (id: String) => {
       blurFocus();
-      selected.value = props.options.find(o => o[props.idKey] === id);
       emit('update:modelValue', id);
     }
 
@@ -111,6 +109,8 @@ export default defineComponent({
         select(hover.value);
       }
     }
+
+    const selected = computed(() => props.options.find(o => o[props.idKey] === props.modelValue));
 
     onMounted(() => {
       document.addEventListener('click', blurFocus);
