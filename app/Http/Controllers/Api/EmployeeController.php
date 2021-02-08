@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EmployeesGetRequest;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\EmployeesSuggestionRequest;
 use App\Models\Employee;
@@ -31,6 +32,12 @@ class EmployeeController extends Controller
             $employees = Employee::limit(10)->get();
         }
 
+        return response()->json($employees);
+    }
+
+    public function get(EmployeesGetRequest $request): JsonResponse
+    {
+        $employees = Employee::findMany($request->get('ids'));
         return response()->json($employees);
     }
 
