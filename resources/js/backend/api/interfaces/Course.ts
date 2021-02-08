@@ -17,9 +17,9 @@ export interface Course {
 }
 
 export interface CourseView {
-  id: number;
-  name: string;
-  enabled: boolean;
+  id?: number;
+  name?: string;
+  enabled?: boolean;
   start?: Date;
   end?: Date;
   duration?: string;
