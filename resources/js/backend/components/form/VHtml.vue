@@ -3,7 +3,7 @@
     <slot/>
   </label>
   <div ref="editorRef"
-       class="mb-4 border border-gray-400 shadow block w-full rounded p-1 focus:ring focus:outline-none">
+       class="mb-4 border border-gray-400 shadow block w-full rounded p-1 focus:ring focus:outline-none bg-white">
   </div>
 </template>
 
@@ -22,7 +22,7 @@ export default defineComponent({
 
     const initEditor = (el: HTMLElement) => {
       const editor = new MediumEditor(el, {
-        placeholder: { text: props.placeholder }
+        placeholder: false
       });
 
       editor.subscribe('editableInput', () => {
