@@ -50,7 +50,7 @@ export default defineComponent({
       search(employeeInput.value);
     });
 
-    const addModal = ref(true);
+    const addModal = ref(false);
 
     const addHandler = () => {
       addModal.value = true;
