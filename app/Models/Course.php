@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Course
@@ -11,8 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $name
  * @property int $enabled
- * @property string|null $start
- * @property string|null $end
+ * @property Carbon|null $start
+ * @property Carbon|null $end
  * @property string $duration
  * @property string $education_time
  * @property string $description
@@ -21,9 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $target_audience
  * @property string $impl_form
  * @property int|null $leader_id
- * @property string|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|Course newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Course newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Course query()
@@ -32,4 +33,25 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'enabled',
+        'start',
+        'end',
+        'duration',
+        'education_time',
+        'description',
+        'program',
+        'conditions',
+        'target_audience',
+        'impl_form',
+        'leader_id',
+    ];
+
+    protected $casts = [
+        'start' => 'date',
+        'end' => 'date',
+        'deleted_at' => 'datetime'
+    ];
 }
