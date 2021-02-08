@@ -1,7 +1,7 @@
 <template>
   <div class="fixed flex items-start justify-center left-0 top-0 w-screen h-screen bg-white bg-opacity-80 z-40" v-if="addModal">
     <div class="p-4 transform lg:translate-y-48 shadow-lg bg-gray-50 rounded-lg lg:w-1/4">
-      <form @submit.prevent="addSubmit">
+      <form @submit.prevent="addSubmit" @keydown="keyHandler">
         <v-input v-model="addEmployeeFullName">
           ФИО сотрудника
           <small v-if="errors.full_name" class="text-red-600">{{ errors.full_name[0] }}</small>
@@ -56,6 +56,12 @@ export default defineComponent({
       addModal.value = true;
     }
 
+    const keyHandler = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        addModal.value = false;
+      }
+    }
+
     const addEmployeeFullName = ref('');
     const addEmployeePost = ref('');
     const addSubmit = () => {
@@ -76,6 +82,7 @@ export default defineComponent({
       addEmployeePost,
       errors,
       addHandler,
+      keyHandler,
       addSubmit
     }
   }
