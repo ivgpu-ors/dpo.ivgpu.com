@@ -18,7 +18,7 @@
         <tr v-for="course in courses" :key="course.id">
           <td class="w-1/3 text-left py-3 px-4">{{ course.name }}</td>
           <td class="w-1/3 text-left py-3 px-4">
-            <button @click="course.enabled = !course.enabled">{{ course.enabled }}</button>
+            <v-switcher :model-value="!!course.enabled" @update:model-value="switchCourse(course)"  />
           </td>
           <td class="text-left py-3 px-4">
             <v-button>Edit</v-button>
@@ -34,15 +34,27 @@
 import { defineComponent } from 'vue';
 import VButton from "@backend/components/form/VButton.vue";
 import useCourse from "@backend/hooks/useCourse";
+import VSwitcher from "@backend/components/form/VSwitcher.vue";
+import { CourseView } from "@backend/api/interfaces/Course";
+import { courseApi } from "@backend/api/CourseApi";
 
 export default defineComponent({
-  components: { VButton },
+  components: { VSwitcher, VButton },
   setup() {
     const { courses, all } = useCourse();
     all();
 
+    const switchCourse = (course: CourseView) => {
+      course.enabled = !course.enabled;
+
+      courseApi.toggle(course.id)
+        .then(e => course.enabled = e)
+        .catch(() => course.enabled = !course.enabled);
+    }
+
     return {
-      courses
+      courses,
+      switchCourse
     }
   }
 });

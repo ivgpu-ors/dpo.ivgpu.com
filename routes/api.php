@@ -25,5 +25,6 @@ Route::middleware('can:admin')->group(function () {
     Route::get('employees/get', [EmployeeController::class, 'get']);
     Route::resource('employees', EmployeeController::class)->except(['create', 'edit']);
 
+    Route::post('courses/{course}/toggle', [CourseController::class, 'toggle']);
     Route::resource('courses', CourseController::class)->except(['create', 'edit']);
 });

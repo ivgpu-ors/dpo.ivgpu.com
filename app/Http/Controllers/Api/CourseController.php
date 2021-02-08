@@ -34,6 +34,14 @@ class CourseController extends Controller
         return response()->json($course);
     }
 
+    public function toggle(Course $course): JsonResponse
+    {
+        $course->enabled = !$course->enabled;
+        $course->save();
+
+        return response()->json($course->enabled);
+    }
+
     /**
      * Display the specified resource.
      *
