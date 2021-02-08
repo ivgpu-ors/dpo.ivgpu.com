@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCourseRequest;
 use App\Models\Course;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -27,7 +28,7 @@ class CourseController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(StoreCourseRequest $request): JsonResponse
     {
         $course = Course::create($request->post());
         return response()->json($course);

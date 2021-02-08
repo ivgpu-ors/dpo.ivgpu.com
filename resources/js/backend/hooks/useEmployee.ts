@@ -19,6 +19,12 @@ export default function useUser() {
     loading.value = false;
   }
 
+  async function get(ids: Number[]) {
+    loading.value = true;
+    employees.value = await employeeApi.byIds(ids);
+    loading.value = false;
+  }
+
   async function create(data: CreateParams): Promise<Employee | undefined> {
     loading.value = true;
 
@@ -42,5 +48,6 @@ export default function useUser() {
     search,
     all,
     create,
+    get,
   }
 }

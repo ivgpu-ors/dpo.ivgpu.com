@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\EmployeeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,4 +24,6 @@ Route::middleware('can:admin')->group(function () {
     Route::get('employees/suggest', [EmployeeController::class, 'suggest']);
     Route::get('employees/get', [EmployeeController::class, 'get']);
     Route::resource('employees', EmployeeController::class)->except(['create', 'edit']);
+
+    Route::resource('courses', CourseController::class)->except(['create', 'edit']);
 });
