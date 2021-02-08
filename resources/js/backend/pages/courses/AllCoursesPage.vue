@@ -8,8 +8,17 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import VButton from "@backend/components/form/VButton.vue";
+import useCourse from "@backend/hooks/useCourse";
 
 export default defineComponent({
-  components: { VButton  }
+  components: { VButton },
+  setup() {
+    const { courses, all } = useCourse();
+    all();
+
+    return {
+      courses
+    }
+  }
 });
 </script>
