@@ -12,6 +12,8 @@ export interface Course {
   target_audience?: string;
   impl_form: string;
   leader_id?: number;
+  teachers_ids: Number[];
+  deleted_at?: Date;
   created_at?: Date;
   updated_at?: Date;
 }

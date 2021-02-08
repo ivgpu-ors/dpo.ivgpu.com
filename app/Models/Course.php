@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -25,9 +28,11 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|Course newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Course newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Course query()
+ * @property-read Collection|Employee[] $teachers
+ * @property-read int|null $teachers_count
+ * @method static Builder|Course newModelQuery()
+ * @method static Builder|Course newQuery()
+ * @method static Builder|Course query()
  * @mixin \Eloquent
  */
 class Course extends Model
@@ -54,4 +59,9 @@ class Course extends Model
         'end' => 'date',
         'deleted_at' => 'datetime'
     ];
+
+    public function teachers(): BelongsToMany
+    {
+        return $this->belongsToMany(Employee::class);
+    }
 }

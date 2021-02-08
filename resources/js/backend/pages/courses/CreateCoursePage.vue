@@ -11,8 +11,8 @@
       <select-employee v-model="leader_id">
         Руководитель программы <small v-if="errors.leader_id" class="text-red-600">{{ errors.leader_id }}</small>
       </select-employee>
-      <select-employees v-model="teacher_ids">
-        Преподаватели курса <small v-if="errors.teacher_ids" class="text-red-600">{{ errors.teacher_ids }}</small>
+      <select-employees v-model="teachers_ids">
+        Преподаватели курса <small v-if="errors.teachers_ids" class="text-red-600">{{ errors.teachers_ids }}</small>
       </select-employees>
       <v-input v-model="start" type="date">
         Дата начала <small v-if="errors.start" class="text-red-600">{{ errors.start }}</small>
@@ -74,7 +74,7 @@ export default defineComponent({
     const target_audience = ref('');
     const impl_form = ref('');
     const leader_id = ref();
-    const teacher_ids = ref([]);
+    const teachers_ids = ref([]);
 
     const submit = () => {
       create({
@@ -90,7 +90,7 @@ export default defineComponent({
         target_audience: target_audience.value,
         impl_form: impl_form.value,
         leader_id: leader_id.value,
-        // teacher_ids: teacher_ids.value
+        teachers_ids: teachers_ids.value
       });
     }
 
@@ -114,7 +114,7 @@ export default defineComponent({
       target_audience,
       impl_form,
       leader_id,
-      teacher_ids,
+      teachers_ids,
       submit,
 
       errors,
