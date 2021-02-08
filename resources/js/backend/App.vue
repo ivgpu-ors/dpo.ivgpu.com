@@ -13,7 +13,7 @@
         </sidebar-link>
       </nav>
     </div>
-    <div class="ml-10 lg:ml-72">
+    <div class="ml-10 lg:ml-72 bg-gray-100">
       <router-view></router-view>
     </div>
   </div>
