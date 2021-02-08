@@ -55,7 +55,7 @@ import VButton from "@backend/components/form/VButton.vue";
 import VInputSelect from "@backend/components/form/VInputSelect.vue";
 import SelectEmployee from "@backend/components/SelectEmployee.vue";
 import SelectEmployees from "@backend/components/SelectEmployees.vue";
-import useCourse from "@backend/hooks/useCourses";
+import useCourse from "@backend/hooks/useCourse";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
