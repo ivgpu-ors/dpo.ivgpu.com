@@ -1,5 +1,6 @@
 <template>
-  <div class="fixed flex items-start justify-center left-0 top-0 w-screen h-screen bg-white bg-opacity-80 z-40" v-if="addModal">
+  <div class="fixed flex items-start justify-center left-0 top-0 w-screen h-screen bg-white bg-opacity-80 z-40"
+       v-if="addModal">
     <div class="p-4 transform lg:translate-y-48 shadow-lg bg-gray-50 rounded-lg lg:w-1/4">
       <form @submit.prevent="addSubmit" @keydown="keyHandler">
         <v-input v-model="addEmployeeFullName">
@@ -18,20 +19,21 @@
   </div>
 
   <v-input-select :model-value="modelValue" @update:modelValue="$emit('update:modelValue', $event)"
-                  v-model:search="employeeInput" :options="employees" @add="addHandler"
+                  :search="employeeInput" @update:search="updateSearch" :options="employees" @add="addHandler"
                   id-key="id" value-key="full_name">
-    <slot />
+    <slot/>
   </v-input-select>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 import useEmployee from "@backend/hooks/useEmployee";
 
 import VInputSelect from "@backend/components/form/VInputSelect.vue";
 import VInput from "@backend/components/form/VInput.vue";
 import VButton from "@backend/components/form/VButton.vue";
+import useDebounceSearch from "@backend/hooks/useDebounceSearch";
 
 export default defineComponent({
   components: { VButton, VInput, VInputSelect },
@@ -40,15 +42,16 @@ export default defineComponent({
     modelValue: { type: Number }
   },
 
-  emits: [ 'update:modelValue' ],
+  emits: ['update:modelValue'],
 
   setup(props, { emit }) {
-    const employeeInput = ref('');
     const { search, employees, create, errors } = useEmployee();
+    const {
+      displayValue: employeeInput,
+      debounceListener: updateSearch
+    } = useDebounceSearch((val: string) => search(val));
 
-    watchEffect(() => {
-      search(employeeInput.value);
-    });
+    search('');
 
     const addModal = ref(false);
 
@@ -83,7 +86,8 @@ export default defineComponent({
       errors,
       addHandler,
       keyHandler,
-      addSubmit
+      addSubmit,
+      updateSearch
     }
   }
 });
