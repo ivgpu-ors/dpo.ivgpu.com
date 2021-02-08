@@ -18,7 +18,7 @@ class CourseController extends Controller
      */
     public function index(): JsonResponse
     {
-        $courses = Course::all(['id', 'name']);
+        $courses = Course::all(['id', 'name', 'enabled']);
         return response()->json($courses);
     }
 
