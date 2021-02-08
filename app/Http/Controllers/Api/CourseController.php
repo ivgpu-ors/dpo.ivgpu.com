@@ -25,7 +25,7 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param StoreCourseRequest $request
      * @return JsonResponse
      */
     public function store(StoreCourseRequest $request): JsonResponse
