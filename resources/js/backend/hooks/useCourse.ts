@@ -11,7 +11,7 @@ export default function useCourse() {
   async function all() {
     loading.value = true;
     courses.value = await courseApi.all();
-    loading.value = true;
+    loading.value = false;
   }
 
   async function create(data: Course) {

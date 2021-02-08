@@ -15,6 +15,9 @@
         </tr>
         </thead>
         <tbody class="text-gray-700">
+        <tr v-if="loading">
+          <td colspan="3" class="text-center italic py-3">Loading...</td>
+        </tr>
         <tr v-for="course in courses" :key="course.id">
           <td class="w-1/3 text-left py-3 px-4">{{ course.name }}</td>
           <td class="w-1/3 text-left py-3 px-4">
@@ -41,7 +44,7 @@ import { courseApi } from "@backend/api/CourseApi";
 export default defineComponent({
   components: { VSwitcher, VButton },
   setup() {
-    const { courses, all } = useCourse();
+    const { loading, courses, all } = useCourse();
     all();
 
     const switchCourse = (course: CourseView) => {
@@ -53,6 +56,7 @@ export default defineComponent({
     }
 
     return {
+      loading,
       courses,
       switchCourse
     }
