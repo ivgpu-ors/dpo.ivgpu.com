@@ -21,7 +21,7 @@
             <v-switcher :model-value="!!course.enabled" @update:model-value="switchCourse(course)"  />
           </td>
           <td class="text-left py-3 px-4">
-            <v-button>Edit</v-button>
+            <v-button :route="`/admin/courses/${course.id}`">Edit</v-button>
           </td>
         </tr>
         </tbody>

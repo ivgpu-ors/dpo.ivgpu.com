@@ -1,11 +1,11 @@
-import { Course, CourseView, CreateCourse } from "@backend/api/interfaces/Course";
+import { Course, CourseView } from "@backend/api/interfaces/Course";
 import { ref } from "vue";
 import { courseApi } from "@backend/api/CourseApi";
 
 export default function useCourse() {
   const loading = ref(false);
   const courses = ref<CourseView[]>([]);
-  const created = ref<Course | undefined>();
+  const course = ref<Course | undefined>();
   const errors = ref([]);
 
   async function all() {
@@ -14,11 +14,37 @@ export default function useCourse() {
     loading.value = true;
   }
 
-  async function create(data: CreateCourse) {
+  async function create(data: Course) {
     loading.value = true;
 
     try {
-      created.value = await courseApi.create(data)
+      course.value = await courseApi.create(data)
+      errors.value = [];
+    } catch (e) {
+      errors.value = e.response?.data?.errors;
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function update(id: Number, data: Course) {
+    loading.value = true;
+
+    try {
+      course.value = await courseApi.update(id, data)
+      errors.value = [];
+    } catch (e) {
+      errors.value = e.response?.data?.errors;
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function load(id: Number) {
+    loading.value = true;
+
+    try {
+      course.value = await courseApi.load(id)
       errors.value = [];
     } catch (e) {
       errors.value = e.response?.data?.errors;
@@ -30,9 +56,11 @@ export default function useCourse() {
   return {
     loading,
     errors,
-    created,
+    course,
     courses,
     create,
     all,
+    load,
+    update,
   }
 }

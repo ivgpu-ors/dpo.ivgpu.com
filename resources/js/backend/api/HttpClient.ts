@@ -13,4 +13,7 @@ export default abstract class HttpClient {
 
   protected post = async <T>(url: string, params: object = {}): Promise<T> =>
     (await this.instance.post<T>(url, params)).data;
+
+  protected patch = async <T>(url: string, params: object = {}): Promise<T> =>
+    (await this.instance.patch<T>(url, params)).data;
 }
