@@ -31,8 +31,11 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request): JsonResponse
     {
+        $options = collect($request->post('options'));
+        dd($options);
         $course = Course::create($request->post());
         $course->teachers()->attach($request->post('teachers_ids'));
+
         return response()->json(new CourseResource($course));
     }
 

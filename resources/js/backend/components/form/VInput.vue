@@ -3,6 +3,7 @@
     <slot/>
   </label>
   <input :type="type" :id="id" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"
+         @keypress="$emit('keypress', $event)"
          class="mb-4 border border-gray-400 shadow block w-full rounded p-1 focus:ring focus:outline-none">
 </template>
 
@@ -15,7 +16,7 @@ export default defineComponent({
     type: { type: String, default: 'text' },
     modelValue: { type: String }
   },
-  emits: ['update:modelValue'],
+  emits: [ 'update:modelValue', 'keypress' ],
   setup() {
     const id = nanoid();
 

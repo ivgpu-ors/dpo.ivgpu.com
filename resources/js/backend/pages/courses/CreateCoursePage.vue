@@ -14,6 +14,9 @@
       <select-employees v-model="teachers_ids">
         Преподаватели курса <small v-if="errors.teachers_ids" class="text-red-600">{{ errors.teachers_ids }}</small>
       </select-employees>
+      <select-options v-model="options">
+        Преподаватели курса <small v-if="errors.options" class="text-red-600">{{ errors.options }}</small>
+      </select-options>
       <v-input v-model="start" type="date">
         Дата начала <small v-if="errors.start" class="text-red-600">{{ errors.start }}</small>
       </v-input>
@@ -57,9 +60,10 @@ import SelectEmployee from "@backend/components/SelectEmployee.vue";
 import SelectEmployees from "@backend/components/SelectEmployees.vue";
 import useCourse from "@backend/hooks/useCourse";
 import { useRouter } from "vue-router";
+import SelectOptions from "@backend/components/SelectOptions.vue";
 
 export default defineComponent({
-  components: { SelectEmployees, SelectEmployee, VInputSelect, VButton, VHtml, VInput },
+  components: { SelectOptions, SelectEmployees, SelectEmployee, VInputSelect, VButton, VHtml, VInput },
   setup() {
     const { errors, course, create } = useCourse();
 
@@ -75,6 +79,7 @@ export default defineComponent({
     const impl_form = ref('');
     const leader_id = ref();
     const teachers_ids = ref([]);
+    const options = ref([]);
 
     const submit = () => {
       create({
@@ -90,7 +95,8 @@ export default defineComponent({
         target_audience: target_audience.value,
         impl_form: impl_form.value,
         leader_id: leader_id.value,
-        teachers_ids: teachers_ids.value
+        teachers_ids: teachers_ids.value,
+        options: options.value,
       });
     }
 
@@ -115,9 +121,10 @@ export default defineComponent({
       impl_form,
       leader_id,
       teachers_ids,
+      options,
+      errors,
       submit,
 
-      errors,
     }
   }
 });

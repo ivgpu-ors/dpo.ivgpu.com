@@ -28,7 +28,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection|Employee[] $teachers
+ * @property-read Collection|\App\Models\Employee[] $teachers
  * @property-read int|null $teachers_count
  * @method static Builder|Course newModelQuery()
  * @method static Builder|Course newQuery()
@@ -63,5 +63,10 @@ class Course extends Model
     public function teachers(): BelongsToMany
     {
         return $this->belongsToMany(Employee::class);
+    }
+
+    public function options(): BelongsToMany
+    {
+        return $this->belongsToMany(Option::class)->using(CourseOption::class);
     }
 }

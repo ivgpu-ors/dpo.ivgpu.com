@@ -1,3 +1,5 @@
+import { Option } from "@backend/api/interfaces/Option";
+
 export interface Course {
   id: number;
   name: string;
@@ -13,6 +15,7 @@ export interface Course {
   impl_form: string;
   leader_id?: number;
   teachers_ids: Number[];
+  options?: { option: Option, price: Number }[];
   deleted_at?: Date;
   created_at?: Date;
   updated_at?: Date;

@@ -23,6 +23,7 @@ class StoreCourseRequest extends FormRequest
             'leader_id' => 'nullable|exists:employees,id',
             'teacher_ids' => 'array',
             'teacher_ids.*' => 'exists:employees,id',
+            'options' => 'array',
         ];
     }
 }
