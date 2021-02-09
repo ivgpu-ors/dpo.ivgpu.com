@@ -1,11 +1,24 @@
 <template>
   <div class="font-semibold ">Options</div>
   <div class="grid grid-cols-1 lg:grid-cols-5 gap-2">
-    <div v-for="option in modelValue" class="shadow-lg bg-white border-gray-500 rounded-md overflow-hidden">
-      <div class="bg-jasmine p-3">
+    <div v-for="option in modelValue" class="shadow-lg bg-white border-gray-500 rounded-md overflow-hidden flex flex-col">
+      <div class="bg-gray-700 p-3 text-light">
         {{ option.option.name }}
       </div>
-      {{ option }}
+
+      <div class="flex-grow">
+        <ul class="list-inside list-disc p-3" v-if="option.option.capacities.length">
+          <li v-for="capacity in option.option.capacities">{{ capacity }}</li>
+        </ul>
+        <div v-if="option.option.caption" class="border-t border-gray-300 p-3">
+          {{ option.option.caption }}
+        </div>
+      </div>
+
+      <div class="bg-gray-700 p-3 flex">
+        <input type="text" class="bg-white rounded-tl rounded-bl border border-light focus:ring w-full" v-model="option.price">
+        <div class="bg-gray-100 px-2 border-l border-gray-300 rounded-tr rounded-br">руб</div>
+      </div>
     </div>
     <create-option @create="optionCreate" />
   </div>
@@ -15,6 +28,7 @@
 import { defineComponent, PropType } from 'vue';
 import { Option } from "@backend/api/interfaces/Option";
 import CreateOption from "@backend/components/CreateOption.vue";
+import VInput from "@backend/components/form/VInput.vue";
 
 interface CourseOption {
   option: Option;
@@ -22,7 +36,7 @@ interface CourseOption {
 }
 
 export default defineComponent({
-  components: { CreateOption },
+  components: { VInput, CreateOption },
   props: {
     modelValue: { type: Array as PropType<CourseOption[]>, default: [] },
   },
@@ -30,7 +44,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const optionCreate = (option: Option) => {
       const newOptions = [...props.modelValue];
-      newOptions.push({ option: option, price: 10.0 });
+      newOptions.push({ option: option, price: 0.0 });
 
       emit('update:modelValue', newOptions);
     }
