@@ -16,7 +16,17 @@ class CourseResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $teachers_ids = DB::table('course_employee')->where('course_id', '=', $this->id)->get('employee_id')->pluck('employee_id');
+        $teachers_ids = DB::table('course_employee')
+            ->where('course_id', '=', $this->id)
+            ->get('employee_id')
+            ->pluck('employee_id');
+
+        $options = $this->options->map(function ($o) {
+            return [
+                'option' => $o->toArray(),
+                'price' => $o->pivot->price
+            ];
+        });
 
         return [
             'id' => $this->id,
@@ -33,6 +43,7 @@ class CourseResource extends JsonResource
             'impl_form' => $this->impl_form,
             'leader_id' => $this->leader_id,
             'teachers_ids' => $teachers_ids,
+            'options' => $options,
             'deleted_at' => $this->deleted_at,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

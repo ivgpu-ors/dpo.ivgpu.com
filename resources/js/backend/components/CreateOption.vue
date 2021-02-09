@@ -40,7 +40,7 @@ export default defineComponent({
   components: { VInputSelect, VButton, VInput, Icon },
   emits: [ 'create' ],
   setup(props, { emit }) {
-    const addModal = ref(true);
+    const addModal = ref(false);
     const option = reactive<Option>({ capacities: [], caption: "", id: 0, name: "" });
     const existId = ref<Number>();
     const newCapacity = ref('');

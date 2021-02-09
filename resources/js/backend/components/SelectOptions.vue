@@ -30,7 +30,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const optionCreate = (option: Option) => {
       const newOptions = [...props.modelValue];
-      newOptions.push({ option: option, price: 0.0 });
+      newOptions.push({ option: option, price: 10.0 });
 
       emit('update:modelValue', newOptions);
     }

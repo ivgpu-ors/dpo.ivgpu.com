@@ -14,6 +14,7 @@
       <select-employees v-model="teachers_ids">
         Преподаватели курса <small v-if="errors.teachers_ids" class="text-red-600">{{ errors.teachers_ids }}</small>
       </select-employees>
+      <select-options v-model="options"></select-options>
       <v-input v-model="start" type="date">
         Дата начала <small v-if="errors.start" class="text-red-600">{{ errors.start }}</small>
       </v-input>
@@ -48,8 +49,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from 'vue';
 import * as dateFormat from 'dateformat';
+import { defineComponent, ref, watchEffect } from 'vue';
+import { useRoute } from "vue-router";
+import useCourse from "@backend/hooks/useCourse";
 
 import VInput from "@backend/components/form/VInput.vue";
 import VHtml from "@backend/components/form/VHtml.vue";
@@ -57,11 +60,11 @@ import VButton from "@backend/components/form/VButton.vue";
 import VInputSelect from "@backend/components/form/VInputSelect.vue";
 import SelectEmployee from "@backend/components/SelectEmployee.vue";
 import SelectEmployees from "@backend/components/SelectEmployees.vue";
-import useCourse from "@backend/hooks/useCourse";
-import { useRoute } from "vue-router";
+import SelectOptions from "@backend/components/SelectOptions.vue";
+import { Option } from "@backend/api/interfaces/Option";
 
 export default defineComponent({
-  components: { SelectEmployees, SelectEmployee, VInputSelect, VButton, VHtml, VInput },
+  components: { SelectEmployees, SelectEmployee, SelectOptions, VInputSelect, VButton, VHtml, VInput },
   setup() {
     const { errors, course, load, update } = useCourse();
 
@@ -78,6 +81,7 @@ export default defineComponent({
     const impl_form = ref();
     const leader_id = ref();
     const teachers_ids = ref<Number[]>([]);
+    const options = ref<{ option: Option; price: Number; }[]>([]);
 
     const submit = () => {
       update(course.value?.id ?? 0, {
@@ -94,7 +98,8 @@ export default defineComponent({
         target_audience: target_audience.value,
         impl_form: impl_form.value,
         leader_id: leader_id.value,
-        teachers_ids: teachers_ids.value
+        teachers_ids: teachers_ids.value,
+        options: options.value
       });
     }
 
@@ -121,6 +126,7 @@ export default defineComponent({
         impl_form.value = course.value.impl_form;
         leader_id.value = course.value.leader_id;
         teachers_ids.value = course.value.teachers_ids;
+        options.value = course.value.options ?? [];
       }
     });
 
@@ -137,9 +143,10 @@ export default defineComponent({
       impl_form,
       leader_id,
       teachers_ids,
+      errors,
+      options,
       submit,
 
-      errors,
     }
   }
 });

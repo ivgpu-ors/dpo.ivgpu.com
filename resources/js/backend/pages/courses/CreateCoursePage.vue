@@ -14,9 +14,7 @@
       <select-employees v-model="teachers_ids">
         Преподаватели курса <small v-if="errors.teachers_ids" class="text-red-600">{{ errors.teachers_ids }}</small>
       </select-employees>
-      <select-options v-model="options">
-        Преподаватели курса <small v-if="errors.options" class="text-red-600">{{ errors.options }}</small>
-      </select-options>
+      <select-options v-model="options"></select-options>
       <v-input v-model="start" type="date">
         Дата начала <small v-if="errors.start" class="text-red-600">{{ errors.start }}</small>
       </v-input>

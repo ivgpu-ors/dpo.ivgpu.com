@@ -28,6 +28,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Collection|\App\Models\Option[] $options
+ * @property-read int|null $options_count
  * @property-read Collection|\App\Models\Employee[] $teachers
  * @property-read int|null $teachers_count
  * @method static Builder|Course newModelQuery()
@@ -67,6 +69,6 @@ class Course extends Model
 
     public function options(): BelongsToMany
     {
-        return $this->belongsToMany(Option::class)->using(CourseOption::class);
+        return $this->belongsToMany(Option::class)->using(CourseOption::class)->withPivot('price');
     }
 }

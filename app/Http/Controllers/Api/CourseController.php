@@ -31,10 +31,14 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request): JsonResponse
     {
-        $options = collect($request->post('options'));
-        dd($options);
+        $options = [];
+        foreach ($request->post('options') as $o) {
+            $options[$o['option']['id']] = ['price' => $o['price']];
+        }
+
         $course = Course::create($request->post());
         $course->teachers()->attach($request->post('teachers_ids'));
+        $course->options()->sync($options);
 
         return response()->json(new CourseResource($course));
     }
@@ -67,8 +71,14 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course): JsonResponse
     {
+        $options = [];
+        foreach ($request->post('options') as $o) {
+            $options[$o['option']['id']] = ['price' => $o['price']];
+        }
+
         $course->fill($request->post())->save();
         $course->teachers()->attach($request->post('teachers_ids'));
+        $course->options()->sync($options);
 
         return response()->json(new CourseResource($course));
     }
