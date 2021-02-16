@@ -20,7 +20,7 @@
         <div class="bg-gray-100 px-2 border-l border-gray-300 rounded-tr rounded-br">руб</div>
       </div>
 
-      <button class="bg-primary-light text-light py-2" @click="deleteOption(option.option)">Удалить</button>
+      <button class="bg-red-500 text-light py-2" @click="deleteOption(option.option)">Удалить</button>
     </div>
     <create-option @create="createOption" />
   </div>
