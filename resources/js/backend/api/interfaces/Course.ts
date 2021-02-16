@@ -1,8 +1,11 @@
 import { Option } from "@backend/api/interfaces/Option";
+import { File } from "@backend/api/interfaces/File";
 
 export interface Course {
   id: number;
   name: string;
+  image_id?: Number;
+  image?: File;
   enabled: boolean;
   start?: Date;
   end?: Date;

@@ -8,6 +8,8 @@
       <v-input v-model="name">
         Название курса <small v-if="errors.name" class="text-red-600">{{ errors.name }}</small>
       </v-input>
+      <v-file @change="selectImage">Изображение</v-file>
+      <img v-if="image" :src="`/storage/${image.file}`" alt="" class="w-full h-48 object-cover mb-3">
       <select-employee v-model="leader_id">
         Руководитель программы <small v-if="errors.leader_id" class="text-red-600">{{ errors.leader_id }}</small>
       </select-employee>
@@ -59,9 +61,11 @@ import SelectEmployees from "@backend/components/SelectEmployees.vue";
 import useCourse from "@backend/hooks/useCourse";
 import { useRouter } from "vue-router";
 import SelectOptions from "@backend/components/SelectOptions.vue";
+import VFile from "@backend/components/form/VFile.vue";
+import { File } from "@backend/api/interfaces/File";
 
 export default defineComponent({
-  components: { SelectOptions, SelectEmployees, SelectEmployee, VInputSelect, VButton, VHtml, VInput },
+  components: { VFile, SelectOptions, SelectEmployees, SelectEmployee, VInputSelect, VButton, VHtml, VInput },
   setup() {
     const { errors, course, create } = useCourse();
 
@@ -78,11 +82,20 @@ export default defineComponent({
     const leader_id = ref();
     const teachers_ids = ref([]);
     const options = ref([]);
+    const image = ref<File | undefined>();
+
+    const selectImage = (files: File[]) => {
+      console.log(files);
+      if (files.length === 1) {
+        image.value = files[0];
+      }
+    }
 
     const submit = () => {
       create({
         enabled: false, id: 0,
         name: name.value,
+        image_id: image.value?.id,
         start: new Date(start.value),
         end: new Date(end.value),
         duration: duration.value,
@@ -108,6 +121,7 @@ export default defineComponent({
 
     return {
       name,
+      image,
       start,
       end,
       duration,
@@ -122,7 +136,7 @@ export default defineComponent({
       options,
       errors,
       submit,
-
+      selectImage,
     }
   }
 });

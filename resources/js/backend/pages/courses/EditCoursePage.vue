@@ -8,6 +8,8 @@
       <v-input v-model="name">
         Название курса <small v-if="errors.name" class="text-red-600">{{ errors.name }}</small>
       </v-input>
+      <v-file @change="selectImage">Изображение</v-file>
+      <img v-if="image" :src="`/storage/${image.file}`" alt="" class="w-full h-48 object-cover mb-3">
       <select-employee v-model="leader_id">
         Руководитель программы <small v-if="errors.leader_id" class="text-red-600">{{ errors.leader_id }}</small>
       </select-employee>
@@ -62,9 +64,11 @@ import SelectEmployee from "@backend/components/SelectEmployee.vue";
 import SelectEmployees from "@backend/components/SelectEmployees.vue";
 import SelectOptions from "@backend/components/SelectOptions.vue";
 import { Option } from "@backend/api/interfaces/Option";
+import VFile from "@backend/components/form/VFile.vue";
+import { File } from "@backend/api/interfaces/File";
 
 export default defineComponent({
-  components: { SelectEmployees, SelectEmployee, SelectOptions, VInputSelect, VButton, VHtml, VInput },
+  components: { VFile, SelectEmployees, SelectEmployee, SelectOptions, VInputSelect, VButton, VHtml, VInput },
   setup() {
     const { errors, course, load, update } = useCourse();
 
@@ -82,12 +86,21 @@ export default defineComponent({
     const leader_id = ref();
     const teachers_ids = ref<Number[]>([]);
     const options = ref<{ option: Option; price: Number; }[]>([]);
+    const image = ref<File | undefined>();
+
+    const selectImage = (files: File[]) => {
+      console.log(files);
+      if (files.length === 1) {
+        image.value = files[0];
+      }
+    }
 
     const submit = () => {
       update(course.value?.id ?? 0, {
         id: 0,
         enabled: enabled.value,
         name: name.value,
+        image_id: image.value?.id,
         start: new Date(start.value),
         end: new Date(end.value),
         duration: duration.value,
@@ -113,6 +126,7 @@ export default defineComponent({
         const startDate = course.value.start ? dateFormat(new Date(course.value.start), 'yyyy-mm-dd') : undefined;
         const endDate = course.value.end ? dateFormat(new Date(course.value.end), 'yyyy-mm-dd') : undefined;
 
+        image.value = course.value.image;
         enabled.value = course.value?.enabled;
         name.value = course.value.name;
         start.value = startDate;
@@ -145,8 +159,9 @@ export default defineComponent({
       teachers_ids,
       errors,
       options,
+      image,
+      selectImage,
       submit,
-
     }
   }
 });

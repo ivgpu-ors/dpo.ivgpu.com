@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
@@ -14,6 +15,7 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property string $name
+ * @property int|null $image_id
  * @property int $enabled
  * @property Carbon|null $start
  * @property Carbon|null $end
@@ -28,6 +30,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read \App\Models\Image|null $image
  * @property-read Collection|\App\Models\Option[] $options
  * @property-read int|null $options_count
  * @property-read Collection|\App\Models\Employee[] $teachers
@@ -43,6 +46,7 @@ class Course extends Model
 
     protected $fillable = [
         'name',
+        'image_id',
         'enabled',
         'start',
         'end',
@@ -61,6 +65,11 @@ class Course extends Model
         'end' => 'date',
         'deleted_at' => 'datetime'
     ];
+
+    public function image(): BelongsTo
+    {
+        return $this->belongsTo(Image::class);
+    }
 
     public function teachers(): BelongsToMany
     {

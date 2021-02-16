@@ -14,6 +14,9 @@ export default abstract class HttpClient {
   protected post = async <T>(url: string, params: object = {}): Promise<T> =>
     (await this.instance.post<T>(url, params)).data;
 
+  protected postFiles = async <T>(url: string, formData: FormData): Promise<T> =>
+    (await this.instance.post<T>(url, formData, { headers: { 'Content-Type': 'multipart/form-data' } })).data;
+
   protected patch = async <T>(url: string, params: object = {}): Promise<T> =>
     (await this.instance.patch<T>(url, params)).data;
 }

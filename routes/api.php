@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\ImagesController;
 use App\Http\Controllers\Api\OptionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,4 +31,6 @@ Route::middleware('can:admin')->group(function () {
     Route::resource('courses', CourseController::class)->except(['create', 'edit']);
 
     Route::resource('options', OptionController::class)->except(['create', 'edit']);
+
+    Route::resource('images', ImagesController::class)->except(['create', 'edit']);
 });
