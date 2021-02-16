@@ -37,7 +37,7 @@ class CourseController extends Controller
         }
 
         $course = Course::create($request->post());
-        $course->teachers()->attach($request->post('teachers_ids'));
+        $course->teachers()->sync($request->post('teachers_ids'));
         $course->options()->sync($options);
 
         return response()->json(new CourseResource($course));
@@ -77,7 +77,7 @@ class CourseController extends Controller
         }
 
         $course->fill($request->post())->save();
-        $course->teachers()->attach($request->post('teachers_ids'));
+        $course->teachers()->sync($request->post('teachers_ids'));
         $course->options()->sync($options);
 
         return response()->json(new CourseResource($course));
