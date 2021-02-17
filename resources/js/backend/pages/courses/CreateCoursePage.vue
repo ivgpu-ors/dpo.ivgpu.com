@@ -10,12 +10,6 @@
       </v-input>
       <v-file @change="selectImage">Изображение</v-file>
       <img v-if="image" :src="`/storage/${image.file}`" alt="" class="w-full h-48 object-cover mb-3">
-      <select-employee v-model="leader_id">
-        Руководитель программы <small v-if="errors.leader_id" class="text-red-600">{{ errors.leader_id }}</small>
-      </select-employee>
-      <select-employees v-model="teachers_ids">
-        Преподаватели курса <small v-if="errors.teachers_ids" class="text-red-600">{{ errors.teachers_ids }}</small>
-      </select-employees>
       <select-options v-model="options"></select-options>
       <v-input v-model="start" type="date">
         Дата начала <small v-if="errors.start" class="text-red-600">{{ errors.start }}</small>
@@ -45,6 +39,13 @@
       <v-input v-model="impl_form">
         Форма реализации <small v-if="errors.impl_form" class="text-red-600">{{ errors.impl_form }}</small>
       </v-input>
+      <hr class="my-6 border-gray-300">
+      <select-employee v-model="leader_id">
+        Руководитель программы <small v-if="errors.leader_id" class="text-red-600">{{ errors.leader_id }}</small>
+      </select-employee>
+      <select-employees v-model="teachers_ids">
+        Преподаватели курса <small v-if="errors.teachers_ids" class="text-red-600">{{ errors.teachers_ids }}</small>
+      </select-employees>
 
     </div>
   </div>
