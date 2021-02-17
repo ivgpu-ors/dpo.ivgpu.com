@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, watchEffect } from 'vue';
 
 import useEmployee from "@backend/hooks/useEmployee";
 
@@ -45,13 +45,17 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup(props, { emit }) {
-    const { search, employees, create, errors } = useEmployee();
+    const { search, employees, create, errors, get } = useEmployee();
     const {
       displayValue: employeeInput,
       debounceListener: updateSearch
     } = useDebounceSearch((val: string) => search(val));
 
-    search('');
+    watchEffect(() => {
+      if (props.modelValue) {
+        get([props.modelValue]);
+      }
+    });
 
     const addModal = ref(false);
 
