@@ -7,6 +7,7 @@ use App\Models\Image;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Facades\ImageFacade as Img;
 
 class ImagesController extends Controller
 {
@@ -32,7 +33,9 @@ class ImagesController extends Controller
         $images = [];
         foreach ($request->file('file') as $file) {
             $file = $file->store('images', 'public');
-            $images[] = Image::create(['file' => $file]);
+            $srcset = Img::makeSet($file);
+
+            $images[] = Image::create(['file' => $file, 'srcset' => $srcset]);
         }
 
         return response()->json($images);
