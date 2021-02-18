@@ -22,7 +22,10 @@
         </div>
       </div>
 
-      <v-button icon="plus" @click="addSubmit">Добавить</v-button>
+      <div class="flex items-center">
+        <v-button icon="plus" @click="addSubmit">Добавить</v-button>
+        <v-button @click="cancel" class="ml-auto">Отмена</v-button>
+      </div>
     </div>
   </div>
 </template>
@@ -38,7 +41,7 @@ import VInputSelect from "@backend/components/form/VInputSelect.vue";
 
 export default defineComponent({
   components: { VInputSelect, VButton, VInput, Icon },
-  emits: [ 'create' ],
+  emits: [ 'create', 'cancel' ],
   setup(props, { emit }) {
     const addModal = ref(false);
     const option = reactive<Option>({ capacities: [], caption: "", id: 0, name: "" });
@@ -62,6 +65,10 @@ export default defineComponent({
 
       addModal.value = false;
     }
+
+    const cancel = () => {
+      addModal.value = false;
+    };
 
     const addCapacity = () => {
       if (newCapacity.value && option.capacities) {
@@ -95,6 +102,7 @@ export default defineComponent({
       keyHandler,
       capacityInputPress,
       addNew,
+      cancel,
     }
   }
 });
