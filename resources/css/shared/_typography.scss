@@ -1,14 +1,14 @@
 @layer base {
     h1 {
-        @apply text-5xl pb-2 mb-4 border-b border-gray-300;
+        @apply text-5xl mb-4 font-head;
     }
 
     h2 {
-        @apply text-3xl pb-2 mb-4 text-gray-700;
+        @apply text-3xl mb-4 text-gray-700 font-head;
     }
 
     h3 {
-        @apply text-2xl pb-2 mb-4 text-gray-700;
+        @apply text-2xl mb-4 text-gray-700 font-head;
     }
 
     p {
