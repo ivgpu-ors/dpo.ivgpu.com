@@ -5,7 +5,7 @@
     </label>
 
     <div class="mb-4 border border-gray-400 shadow block w-full rounded p-1 absolute bg-white z-0 focus:outline-none"
-         :class="{ ring: focus }" tabindex="0" @focus="setFocus" @blur="focus = false" @keydown="keyPressHandler">
+         :class="{ ring: focus, 'z-10': focus }" tabindex="0" @focus="setFocus" @blur="focus = false" @keydown="keyPressHandler">
 
       <label :for="id" v-if="selected" v-show="!focus" class="absolute">{{ selected[valueKey] }}</label>
 

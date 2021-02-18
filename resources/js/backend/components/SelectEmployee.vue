@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from 'vue';
+import { defineComponent, onMounted, ref, watchEffect } from 'vue';
 
 import useEmployee from "@backend/hooks/useEmployee";
 
@@ -50,6 +50,8 @@ export default defineComponent({
       displayValue: employeeInput,
       debounceListener: updateSearch
     } = useDebounceSearch((val: string) => search(val));
+
+    onMounted(() => search(''));
 
     watchEffect(() => {
       if (props.modelValue) {
