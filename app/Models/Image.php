@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Storage;
  * @property array|null $srcset
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read string $image_sizes
+ * @property-read string $image_src
  * @property-read string $image_srcset
  * @method static \Illuminate\Database\Eloquent\Builder|Image newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Image newQuery()
@@ -27,6 +29,24 @@ class Image extends Model
     protected $casts = [
         'srcset' => 'array',
     ];
+
+    public function getImageSrcAttribute(): string
+    {
+        return Storage::url($this->file);
+    }
+
+    public function getImageSizesAttribute(): string
+    {
+        if (! $this->srcset) return '';
+
+        $res = [];
+        foreach ($this->srcset as $set) {
+            $w = $set['width'];
+            $res[] = "(max-width: {$w}px) {$w}px";
+        }
+
+        return implode(', ', $res);
+    }
 
     public function getImageSrcsetAttribute(): string
     {

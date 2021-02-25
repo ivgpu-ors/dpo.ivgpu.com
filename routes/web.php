@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,5 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomeController::class);
+Route::get('/courses/{course_id}', [CourseController::class, 'show'])->name('courses.show');
 
 Route::view('admin{any}', 'backend.app')->where('any', '.*')->middleware('auth');

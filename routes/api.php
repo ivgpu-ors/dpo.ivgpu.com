@@ -22,7 +22,7 @@ Route::middleware('auth')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('can:admin')->group(function () {
+Route::middleware('can:admin')->name('admin.')->group(function () {
     Route::get('employees/suggest', [EmployeeController::class, 'suggest']);
     Route::get('employees/get', [EmployeeController::class, 'get']);
     Route::resource('employees', EmployeeController::class)->except(['create', 'edit']);

@@ -31,6 +31,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read \App\Models\Image|null $image
+ * @property-read \App\Models\Employee|null $leader
  * @property-read Collection|\App\Models\Option[] $options
  * @property-read int|null $options_count
  * @property-read Collection|\App\Models\Employee[] $teachers
@@ -65,6 +66,11 @@ class Course extends Model
         'end' => 'date',
         'deleted_at' => 'datetime'
     ];
+
+    public function leader(): BelongsTo
+    {
+        return $this->belongsTo(Employee::class, 'leader_id');
+    }
 
     public function image(): BelongsTo
     {
