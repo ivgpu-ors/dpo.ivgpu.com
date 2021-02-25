@@ -6,7 +6,7 @@
          aria-hidden="true" alt=""
          class="w-full h-full absolute object-cover">
 
-    <div class="relative bg-dark bg-opacity-70 h-full lg:flex flex-col justify-center">
+    <div class="relative bg-dark bg-opacity-50 h-full lg:flex flex-col justify-center">
       <div class="container lg:max-w-2xl px-4 py-6">
         <h1 class="text-2xl lg:text-4xl mb-8 lg:mb-12">{{ $course->name }}</h1>
         <div class="lg:flex justify-between">
