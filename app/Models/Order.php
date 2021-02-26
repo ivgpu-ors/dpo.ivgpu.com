@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\OrderStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,7 +16,7 @@ use Illuminate\Support\Carbon;
  * @property int $course_id
  * @property int $option_id
  * @property int $price
- * @property int $status
+ * @property \App\Enums\OrderStatus $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Course $course
@@ -42,4 +43,8 @@ class Order extends Model
     {
         return $this->belongsTo(Option::class);
     }
+
+    protected $casts = [
+        'status' => OrderStatus::class
+    ];
 }
