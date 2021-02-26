@@ -29,5 +29,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('admin', function (User $user) {
             return in_array('DPO_ADMIN', $user->roles);
         });
+
+        Gate::define('study', function (User $user) {
+            return in_array('DPO_MEMBER', $user->roles);
+        });
     }
 }

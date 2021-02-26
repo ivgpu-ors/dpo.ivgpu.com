@@ -1,4 +1,7 @@
-<?php /** @var App\Models\Option[] $options */ ?>
+<?php
+/** @var App\Models\Option[] $options */
+/** @var App\Models\Course $course */
+?>
 <div>
   <div class="inline-flex flex-col lg:flex-row">
     @foreach($options as $option)
@@ -31,7 +34,7 @@
           @endif
         </div>
 
-        <a href="" class="block bg-red-500 hover:bg-red-600 w-2/3 mx-auto p-3 text-white text-center">Записаться на курс</a>
+        <a href="{{ route('courses.signup', [$course, $option]) }}" class="block bg-red-500 hover:bg-red-600 w-2/3 mx-auto p-3 text-white text-center">Записаться на курс</a>
       </div>
     @endforeach
   </div>

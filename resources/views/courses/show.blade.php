@@ -27,7 +27,7 @@
     {!! $course->program !!}
 
     @if($course->options->count())
-      <x-courses.options :options="$course->options" />
+      <x-courses.options :options="$course->options" :course="$course" />
     @endif
 
     @if($course->target_audience)
