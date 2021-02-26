@@ -50,6 +50,34 @@ class ApiService
         return $res->json('ivgpu_auth');
     }
 
+    /**
+     * @param string $sub
+     * @param string[] $roles
+     * @return bool
+     */
+    public function appendRoles(string $sub, array $roles): bool
+    {
+        try {
+            $res = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $this->accessToken(),
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+            ])->post(
+                $this->client_url . '/api/client/roles/' . $sub . '/append',
+                [ 'roles' => $roles ]
+            );
+        } catch (\Exception $e) {
+            Log::error('appendRoles', [ 'exception' => $e ]);
+            return false;
+        }
+
+        if ($res->failed()) {
+            Log::warning('appendRolesServerError', [ 'response' => $res->body() ]);
+        }
+
+        return true;
+    }
+
     private function accessToken(): string
     {
         if (Cache::has('account_access_token')) {

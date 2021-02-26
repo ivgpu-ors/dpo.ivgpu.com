@@ -11,11 +11,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
-<body class="index-page h-screen pt-12">
+<body class="index-page h-screen pt-12 flex flex-col">
 
 <x-top-bar />
 
-<main id="app">
+<main id="app" class="flex-grow">
   {{ $slot }}
 </main>
 
