@@ -31,6 +31,8 @@ use Illuminate\Support\Str;
  */
 class Order extends Model
 {
+    protected $fillable = ['user_id', 'course_id', 'option_id'];
+
     public function getIncrementing(): bool
     {
         return false;

@@ -39,18 +39,17 @@ class OrderService
      */
     public static function makeOrder(string $user_id, Course $course, Option $option, int $price): Order
     {
-        if ($price > 0) {
-            $status = OrderStatus::draft();
-        } else {
-            $status = OrderStatus::paid();
-        }
 
-        $order = new Order();
-        $order->user_id = $user_id;
-        $order->course_id = $course->id;
-        $order->option_id = $option->id;
+        $order = Order::firstOrNew([
+            'user_id' => $user_id,
+            'course_id' => $course->id,
+            'option_id' => $option->id,
+        ]);
+
         $order->price = $price;
-        $order->status = $status;
+        if ($price === 0 && $order->status === 0) {
+            $order->status = OrderStatus::paid();
+        }
 
         $order->save();
 
