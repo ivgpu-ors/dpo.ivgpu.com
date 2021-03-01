@@ -74,7 +74,7 @@ class OrderService
             ]
         ];
 
-        $order_id = preg_replace('/-/', '', $order->id);
+        $order_id = 'dpo' . now()->format('yd') . $order->id;
         $result = $this->sber->registerOrder($order_id, $order->price * 100, $returnUrl, $params);
         $order->external_id = $result['orderId'];
         $order->save();

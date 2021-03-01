@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
 
 /**
  * App\Models\Order
@@ -32,24 +31,6 @@ use Illuminate\Support\Str;
 class Order extends Model
 {
     protected $fillable = ['user_id', 'course_id', 'option_id'];
-
-    public function getIncrementing(): bool
-    {
-        return false;
-    }
-
-    public function getKeyType(): string
-    {
-        return 'string';
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-        static::creating(function ($post) {
-            $post->{$post->getKeyName()} = (string) Str::uuid();
-        });
-    }
 
     public function user(): BelongsTo
     {
