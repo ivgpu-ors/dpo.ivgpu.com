@@ -178,6 +178,7 @@ return [
 
         \App\Ivgpu\IvgpuServiceProvider::class,
         App\Providers\MediaServiceProvider::class,
+        App\Providers\PaymentServiceProvider::class,
     ],
 
     /*

@@ -32,12 +32,12 @@ class CourseController extends Controller
         $option = $course->options()->where('option_id', $option_id)->first();
         $price = $option->pivot->price;
 
-        $order = OrderService::createOrder($request->user()->id, $course, $option, $price);
+        $order = OrderService::makeOrder($request->user()->id, $course, $option, $price);
 
         if ($order->status->equals(OrderStatus::paid())) {
             return redirect('/account/orders')->with('success_paid', true);
         } else {
-            return redirect('/order/{order_id}');
+            return redirect(route('order.register', $order));
         }
     }
 }
