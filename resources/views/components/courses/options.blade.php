@@ -34,7 +34,12 @@
           @endif
         </div>
 
-        <a href="{{ route('courses.signup', [$course, $option]) }}" class="block bg-red-500 hover:bg-red-600 w-2/3 mx-auto p-3 text-white text-center">Записаться на курс</a>
+        @if($course->active)
+          <a href="{{ route('courses.signup', [$course, $option]) }}" class="block bg-red-500 hover:bg-red-600 w-2/3 mx-auto p-3 text-white text-center">Записаться на курс</a>
+        @else
+          <div class="block bg-gray-200 w-2/3 mx-auto p-3 text-center">Прием заявок завершен</div>
+        @endif
+
       </div>
     @endforeach
   </div>

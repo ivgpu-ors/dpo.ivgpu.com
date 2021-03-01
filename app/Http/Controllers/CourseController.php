@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\OrderStatus;
 use App\Http\Requests\CourseOrderRequest;
 use App\Models\Course;
-use App\Models\Order;
+use App\Services\OrderService;
 
 class CourseController extends Controller
 {
@@ -15,8 +15,9 @@ class CourseController extends Controller
         return view('courses.show', compact('course'));
     }
 
-    public function signup(Course $course, int $option_id)
+    public function signup(int $course_id, int $option_id)
     {
+        $course = Course::active()->findOrFail($course_id);
         $option = $course->options()->where('option_id', $option_id)->first();
 
         return view('courses.signup', [
@@ -25,25 +26,13 @@ class CourseController extends Controller
         ]);
     }
 
-    public function order(CourseOrderRequest $request, Course $course, int $option_id)
+    public function order(CourseOrderRequest $request, int $course_id, int $option_id)
     {
+        $course = Course::active()->findOrFail($course_id);
         $option = $course->options()->where('option_id', $option_id)->first();
         $price = $option->pivot->price;
 
-        if ($price > 0) {
-            $status = OrderStatus::draft();
-        } else {
-            $status = OrderStatus::paid();
-        }
-
-        $order = new Order();
-        $order->user_id = $request->user()->id;
-        $order->course_id = $course->id;
-        $order->option_id = $option_id;
-        $order->price = $price;
-        $order->status = $status;
-
-        $order->save();
+        $order = OrderService::createOrder($request->user()->id, $course, $option, $price);
 
         if ($order->status->equals(OrderStatus::paid())) {
             return redirect('/account/orders')->with('success_paid', true);

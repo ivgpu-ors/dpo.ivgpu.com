@@ -19,9 +19,9 @@ use Illuminate\Support\Carbon;
  * @property \App\Enums\OrderStatus $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Course $course
- * @property-read Option $option
- * @property-read User $user
+ * @property-read \App\Models\Course $course
+ * @property-read \App\Models\Option $option
+ * @property-read \App\Models\User $user
  * @method static Builder|Order newModelQuery()
  * @method static Builder|Order newQuery()
  * @method static Builder|Order query()

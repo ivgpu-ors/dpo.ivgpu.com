@@ -30,12 +30,14 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read bool $active
  * @property-read \App\Models\Image|null $image
  * @property-read \App\Models\Employee|null $leader
  * @property-read Collection|\App\Models\Option[] $options
  * @property-read int|null $options_count
  * @property-read Collection|\App\Models\Employee[] $teachers
  * @property-read int|null $teachers_count
+ * @method static Builder|Course active()
  * @method static Builder|Course newModelQuery()
  * @method static Builder|Course newQuery()
  * @method static Builder|Course query()
@@ -85,5 +87,17 @@ class Course extends Model
     public function options(): BelongsToMany
     {
         return $this->belongsToMany(Option::class)->using(CourseOption::class)->withPivot('price');
+    }
+
+    public function getActiveAttribute(): bool
+    {
+        return $this->enabled && $this->start ? now()->isBefore($this->start) : true;
+    }
+
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('enabled', true)->where(function (Builder $query) {
+            $query->whereNotNull('start')->where('start', '>', now());
+        });
     }
 }

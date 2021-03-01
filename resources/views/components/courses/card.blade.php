@@ -1,3 +1,4 @@
+<?php /** @var App\Models\Course $course */ ?>
 <article class="border border-gray-400 rounded shadow-md flex flex-col justify-between overflow-hidden">
   <header class="p-2">
     <img src="{{ $course->image->image_src }}" alt="Изображение для {{ $course->name }}"
@@ -20,7 +21,7 @@
     <h1 class="text-base text-gray-500">{{ $course->name }}</h1>
   </header>
   <footer>
-    @if($course->enabled)
+    @if($course->active)
       <a href="{{ route('courses.show', $course) }}" class="bg-primary text-light w-full h-full block p-2 text-center hover:bg-primary-dark">Идет прием заявок</a>
     @else
       <a href="{{ route('courses.show', $course) }}" class="bg-red-400 hover:bg-red-500 text-light w-full h-full block p-2 text-center">Прием заявок завершен</a>
