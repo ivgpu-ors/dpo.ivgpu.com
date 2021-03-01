@@ -82,10 +82,9 @@ class OrderService
         return $result['formUrl'];
     }
 
-    public function success($orderId): bool
+    public function success(Order $order): bool
     {
-        $order = Order::where('external_id', $orderId)->first();
-        $result = $this->sber->getOrderStatus($orderId);
+        $result = $this->sber->getOrderStatus($order->external_id);
 
         if (\Voronkovich\SberbankAcquiring\OrderStatus::isDeposited($result['orderStatus'])) {
             $order->status = OrderStatus::paid();

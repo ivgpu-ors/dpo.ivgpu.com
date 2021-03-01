@@ -28,10 +28,17 @@ class OrderController extends Controller
     public function success(Request $request)
     {
         $orderId = $request->get('orderId');
-        if ($this->orderService->success($orderId)) {
+        $order = Order::firstWhere('external_id', $orderId);
+
+        if ($this->orderService->success($order)) {
             return redirect('/account/orders')->with('success_paid', true);
         } else {
             return redirect('/')->with('error', 'Что-то пошло не так.');
         }
+    }
+
+    public function fail()
+    {
+        return redirect('/')->with('error', 'Что-то пошло не так.');
     }
 }

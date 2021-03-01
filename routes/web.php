@@ -23,6 +23,8 @@ Route::middleware(['auth', 'member', 'can:study'])->group(function() {
     Route::get('/courses/{course_id}/signup/{option_id}', [CourseController::class, 'signup'])->name('courses.signup');
     Route::post('/courses/{course_id}/signup/{option_id}', [CourseController::class, 'order'])->name('courses.order');
 
+    Route::get('/order/success', [OrderController::class, 'success']);
+    Route::get('/order/fail', [OrderController::class, 'fail']);
     Route::get('/order/{order}', [OrderController::class, 'register'])
         ->middleware('can:view-order,order')
         ->name('order.register');
