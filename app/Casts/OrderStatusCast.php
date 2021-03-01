@@ -2,10 +2,11 @@
 
 namespace App\Casts;
 
+use App\Enums\OrderStatus;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderStatus implements CastsAttributes
+class OrderStatusCast implements CastsAttributes
 {
     /**
      * Cast the given value.
@@ -16,9 +17,9 @@ class OrderStatus implements CastsAttributes
      * @param array $attributes
      * @return mixed
      */
-    public function get($model, $key, $value, $attributes): \App\Enums\OrderStatus
+    public function get($model, $key, $value, $attributes): OrderStatus
     {
-        return new \App\Enums\OrderStatus($value);
+        return new OrderStatus($value);
     }
 
     /**
@@ -26,7 +27,7 @@ class OrderStatus implements CastsAttributes
      *
      * @param Model $model
      * @param string $key
-     * @param \App\Enums\OrderStatus $value
+     * @param OrderStatus $value
      * @param array $attributes
      * @return integer
      */
