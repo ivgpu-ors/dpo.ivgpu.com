@@ -91,7 +91,7 @@ class Course extends Model
 
     public function getActiveAttribute(): bool
     {
-        return $this->enabled && $this->start ? now()->isBefore($this->start) : true;
+        return $this->enabled && ($this->start ? now()->isBefore($this->start) : true);
     }
 
     public function scopeActive(Builder $query): Builder
