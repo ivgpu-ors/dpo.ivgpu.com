@@ -19,7 +19,7 @@ class OrderStatusCast implements CastsAttributes
      */
     public function get($model, $key, $value, $attributes): OrderStatus
     {
-        return new OrderStatus($value);
+        return new OrderStatus($value ?? 0);
     }
 
     /**

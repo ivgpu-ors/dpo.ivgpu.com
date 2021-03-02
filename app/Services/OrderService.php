@@ -47,10 +47,8 @@ class OrderService
         ]);
 
         $order->price = $price;
-        if ($price === 0 && $order->status === 0) {
+        if ($price === 0 && $order->status->equals(OrderStatus::draft())) {
             $order->status = OrderStatus::paid();
-        } else {
-            $order->status = OrderStatus::draft();
         }
 
         $order->save();
