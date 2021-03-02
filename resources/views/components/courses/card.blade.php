@@ -1,8 +1,9 @@
 <?php /** @var App\Models\Course $course */ ?>
 <article class="rounded ring-1 ring-gray-400 shadow-md flex flex-col justify-between overflow-hidden">
   <header class="p-2">
-    <img src="{{ $course->image->image_src }}" alt="Изображение для {{ $course->name }}"
+    <img src="{{ $course->image->image_src }}" alt=""
          class="object-cover h-48 w-full mb-3"
+         aria-hidden="true"
          srcset="{{ $course->image->image_srcset }}" sizes="350px">
 
     @if($course->start)

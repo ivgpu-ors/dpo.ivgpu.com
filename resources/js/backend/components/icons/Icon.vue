@@ -1,9 +1,9 @@
 <template>
-  <component :is="`icon-${icon}`" />
+  <component :is="icon_name" />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 import IconPlus from "@backend/components/icons/IconPlus.vue";
 import IconSave from "@backend/components/icons/IconSave.vue";
 
@@ -13,6 +13,12 @@ export default defineComponent({
   },
   props: {
     icon: { type: String }
+  },
+
+  setup(props) {
+    return {
+      icon_name: computed(() => 'icon-' + props.icon),
+    }
   }
 });
 </script>
