@@ -75,6 +75,7 @@ class OrderService
         $order_id = 'dpo' . now()->format('yd') . $order->id;
         $result = $this->sber->registerOrder($order_id, $order->price * 100, $returnUrl, $params);
         $order->external_id = $result['orderId'];
+        $order->pay_url = $result['formUrl'];
         $order->save();
 
         return $result['formUrl'];

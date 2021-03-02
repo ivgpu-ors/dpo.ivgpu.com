@@ -1,7 +1,9 @@
 <?php /** @var App\Models\Order $order */ ?>
-<article class="p-2 shadow-md ring-1 ring-gray-400 rounded-md flex items-start">
+<article class="p-2 shadow-md ring-1 ring-gray-400 rounded-md flex items-start mb-6">
   <div class="flex-grow">
-    <h1 class="text-xl">{{ $order->course->name }}</h1>
+    <h1 class="text-xl">
+      <a href="{{ route('courses.show', $order) }}">{{ $order->course->name }}</a>
+    </h1>
     <div class="flex flex-wrap lg:flex-nowrap">
 
       <div class="w-full lg:w-1/3">
@@ -25,7 +27,7 @@
     @if($order->status->equals(\App\Enums\OrderStatus::paid()))
       <a href="/" class="bg-primary hover:bg-primary-dark inline-block p-2 rounded-md text-white">Перейти к курсу</a>
     @else
-      <a href="{{ route('order.register', $order) }}" class="bg-red-500 hover:bg-red-600 inline-block p-2 rounded-md text-white">Оплатить курс</a>
+      <a href="{{ $order->pay_url }}" class="bg-red-500 hover:bg-red-600 inline-block p-2 rounded-md text-white">Оплатить курс</a>
     @endif
   </footer>
 </article>

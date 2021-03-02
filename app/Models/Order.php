@@ -18,6 +18,7 @@ use Illuminate\Support\Carbon;
  * @property int $price
  * @property \App\Enums\OrderStatus $status
  * @property string|null $external_id
+ * @property string|null $pay_url
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read \App\Models\Course $course
