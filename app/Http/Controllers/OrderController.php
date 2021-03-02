@@ -31,7 +31,7 @@ class OrderController extends Controller
         $order = Order::firstWhere('external_id', $orderId);
 
         if ($this->orderService->success($order)) {
-            return redirect('/account/orders')->with('success_paid', true);
+            return redirect(route('account.orders'))->with('success_paid', true);
         } else {
             return redirect('/')->with('error', 'Что-то пошло не так.');
         }

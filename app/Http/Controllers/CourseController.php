@@ -35,7 +35,7 @@ class CourseController extends Controller
         $order = OrderService::makeOrder($request->user()->id, $course, $option, $price);
 
         if ($order->status->equals(OrderStatus::paid())) {
-            return redirect('/account/orders')->with('success_paid', true);
+            return redirect(route('account.orders'))->with('success_paid', true);
         } else {
             return redirect(route('order.register', $order));
         }

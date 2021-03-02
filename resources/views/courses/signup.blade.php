@@ -86,7 +86,7 @@
         <form action="{{ route('courses.order', [$course, $option]) }}" method="POST">
           @csrf
           <input type="checkbox" value="1" name="contract_accept" id="contract_accept">
-          <label for="contract_accept">Согласен с условиями <a href="{{ asset('docs/contract_accept.pdf') }}" target="_blank" class="text-primary underline hover:no-underline">договора оферты</a></label>
+          <label for="contract_accept">Согласен с условиями <a href="{{ asset('docs/contract_accept.pdf') }}" target="_blank">договора оферты</a></label>
           @error('contract_accept')
             <small class="text-red-500">{{ $message }}</small>
           @enderror

@@ -11,7 +11,7 @@ use Illuminate\Support\Carbon;
 /**
  * App\Models\Order
  *
- * @property string $id
+ * @property int $id
  * @property string $user_id
  * @property int $course_id
  * @property int $option_id
