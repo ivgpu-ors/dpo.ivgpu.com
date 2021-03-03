@@ -6,7 +6,7 @@
   <x-slot name="meta">
     <x-meta-schema type="Course"
                    :name="$course->name"
-                   :description="strip_tags($course->description)"
+                   :description="exert($course->description)"
                    :schema="config('meta.schema.course')"/>
   </x-slot>
 

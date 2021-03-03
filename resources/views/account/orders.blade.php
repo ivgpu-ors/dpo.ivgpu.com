@@ -1,5 +1,5 @@
 <?php /** @var App\Models\Order[] $orders */ ?>
-<x-layouts.default title="Список ваших курсов">
+<x-layouts.default title="Список ваших курсов" description="">
   <div class="container py-6 px-4">
     <h1>Мои курсы</h1>
     @if(session('success_paid'))

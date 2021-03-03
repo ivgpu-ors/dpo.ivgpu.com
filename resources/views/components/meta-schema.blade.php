@@ -12,5 +12,5 @@
     'description' => $description,
   ], $schema);
 ?>
-@json($data)
+@json($data, JSON_UNESCAPED_UNICODE)
 </script>
