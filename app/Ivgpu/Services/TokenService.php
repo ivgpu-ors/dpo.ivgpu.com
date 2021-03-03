@@ -79,4 +79,9 @@ class TokenService
             return null;
         }
     }
+
+    public function appendRoles(string $sub, array $roles): string
+    {
+        return $this->api->appendRoles($sub, $roles);
+    }
 }

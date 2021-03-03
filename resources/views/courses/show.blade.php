@@ -1,5 +1,15 @@
 <?php /** @var App\Models\Course $course */ ?>
-<x-layouts.default :title="$course->name">
+<x-layouts.default :title="$course->name"
+                   :description="exert($course->description)"
+                   :image="url($course->image->image_src)">
+
+  <x-slot name="meta">
+    <x-meta-schema type="Course"
+                   :name="$course->name"
+                   :description="strip_tags($course->description)"
+                   :schema="config('meta.schema.course')"/>
+  </x-slot>
+
   <header class="relative text-light lg:h-96">
     <img src="{{ $course->image->image_src }}" srcset="{{ $course->image->image_srcset }}"
          sizes="{{ $course->image->image_sizes }}"

@@ -3,6 +3,7 @@
 
 namespace App\Ivgpu;
 
+use App\Ivgpu\Services\CookieTokenProvider;
 use App\Ivgpu\Services\TokenService;
 use App\Models\User;
 use Illuminate\Auth\Events\Authenticated;
@@ -23,12 +24,21 @@ class IvgpuGuard implements Guard
     private TokenService $token;
 
     /**
+     * The user provider implementation.
+     *
+     * @var CookieTokenProvider
+     */
+    protected $provider;
+
+    /**
      * IvgpuGuard constructor.
      * @param TokenService $token
+     * @param $provider
      */
-    public function __construct(TokenService $token)
+    public function __construct(TokenService $token, $provider)
     {
         $this->token = $token;
+        $this->provider = $provider;
     }
 
     public function user(): ?Authenticatable
@@ -96,5 +106,11 @@ class IvgpuGuard implements Guard
                 $this->name, $user
             ));
         }
+    }
+
+    public function appendRole($role)
+    {
+        $newToken = $this->token->appendRoles($this->user()->getAuthIdentifier(), [$role]);
+        $this->provider->setToken($newToken);
     }
 }

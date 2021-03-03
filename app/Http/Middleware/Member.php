@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Ivgpu\IvgpuGuard;
 use App\Ivgpu\Services\ApiService;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Member
 {
@@ -12,6 +14,10 @@ class Member
      * @var ApiService
      */
     private ApiService $api;
+    /**
+     * @var IvgpuGuard
+     */
+    private $guard;
 
     /**
      * Member constructor.
@@ -20,6 +26,7 @@ class Member
     public function __construct(ApiService $api)
     {
         $this->api = $api;
+        $this->guard = Auth::guard();
     }
 
     /**
@@ -35,7 +42,7 @@ class Member
         if ($user && !in_array('DPO_MEMBER', $user->roles)) {
             $user->roles = array_merge($user->roles, ['DPO_MEMBER']);
             $user->save();
-            $this->api->appendRoles($user->id, ['DPO_MEMBER']);
+            $this->guard->appendRole('DPO_MEMBER');
         }
 
         return $next($request);

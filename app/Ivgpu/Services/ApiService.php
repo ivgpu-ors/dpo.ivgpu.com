@@ -53,9 +53,9 @@ class ApiService
     /**
      * @param string $sub
      * @param string[] $roles
-     * @return bool
+     * @return string|null New token
      */
-    public function appendRoles(string $sub, array $roles): bool
+    public function appendRoles(string $sub, array $roles): ?string
     {
         try {
             $res = Http::withHeaders([
@@ -68,14 +68,14 @@ class ApiService
             );
         } catch (\Exception $e) {
             Log::error('appendRoles', [ 'exception' => $e ]);
-            return false;
+            return null;
         }
 
         if ($res->failed()) {
             Log::warning('appendRolesServerError', [ 'response' => $res->body() ]);
         }
 
-        return true;
+        return $res->json('token');
     }
 
     private function accessToken(): string

@@ -2,7 +2,8 @@
 /** @var App\Models\Course $course */
 /** @var App\Models\Option $option */
 ?>
-<x-layouts.default :title="'Запись на курс - ' . $course->name">
+<x-layouts.default :title="'Запись на курс - ' . $course->name"
+                   :description="exert($course->description)">
   <div class="h-full py-10">
     <div class="container px-4">
       <h1>Запись на курс</h1>

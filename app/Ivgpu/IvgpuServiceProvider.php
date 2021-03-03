@@ -49,8 +49,9 @@ class IvgpuServiceProvider extends ServiceProvider
     {
         Auth::extend('ivgpu', function ($app) {
             $token = $app->make(TokenService::class);
+            $provider = $app->make(TokenProvider::class);
 
-            return new IvgpuGuard($token);
+            return new IvgpuGuard($token, $provider);
         });
     }
 }
