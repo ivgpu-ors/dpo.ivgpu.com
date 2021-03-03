@@ -4,6 +4,7 @@ import { File } from "@backend/api/interfaces/File";
 export interface Course {
   id: number;
   name: string;
+  content_url: string,
   image_id?: Number;
   image?: File;
   enabled: boolean;

@@ -25,7 +25,7 @@
   </div>
   <footer>
     @if($order->status->equals(\App\Enums\OrderStatus::paid()))
-      <a href="/" class="bg-primary hover:bg-primary-dark inline-block p-2 rounded-md text-white">Перейти к курсу</a>
+      <a href="{{ $order->course->content_url }}" class="bg-primary hover:bg-primary-dark inline-block p-2 rounded-md text-white">Перейти к курсу</a>
     @else
       <a href="{{ $order->pay_url }}" class="bg-red-500 hover:bg-red-600 inline-block p-2 rounded-md text-white">Оплатить курс</a>
     @endif

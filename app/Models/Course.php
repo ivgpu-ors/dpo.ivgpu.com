@@ -15,6 +15,7 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property string $name
+ * @property string $content_url
  * @property int|null $image_id
  * @property int $enabled
  * @property Carbon|null $start
@@ -49,6 +50,7 @@ class Course extends Model
 
     protected $fillable = [
         'name',
+        'content_url',
         'image_id',
         'enabled',
         'start',

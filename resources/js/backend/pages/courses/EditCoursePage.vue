@@ -8,6 +8,9 @@
       <v-input v-model="name">
         Название курса <small v-if="errors.name" class="text-red-600">{{ errors.name }}</small>
       </v-input>
+      <v-input v-model="content_url">
+        Ссылка на курс <small v-if="errors.content_url" class="text-red-600">{{ errors.content_url }}</small>
+      </v-input>
       <v-file @change="selectImage">Изображение</v-file>
       <img v-if="image" :src="`/storage/${image.file}`" alt="" class="w-full h-48 object-cover mb-3">
       <select-options v-model="options"></select-options>
@@ -75,6 +78,7 @@ export default defineComponent({
 
     const enabled = ref();
     const name = ref();
+    const content_url = ref();
     const start = ref();
     const end = ref();
     const duration = ref();
@@ -101,6 +105,7 @@ export default defineComponent({
         id: 0,
         enabled: enabled.value,
         name: name.value,
+        content_url: content_url.value,
         image_id: image.value?.id,
         start: new Date(start.value),
         end: new Date(end.value),
@@ -130,6 +135,7 @@ export default defineComponent({
         image.value = course.value.image;
         enabled.value = course.value?.enabled;
         name.value = course.value.name;
+        content_url.value = course.value.content_url;
         start.value = startDate;
         end.value = endDate;
         duration.value = course.value.duration;
@@ -147,6 +153,7 @@ export default defineComponent({
 
     return {
       name,
+      content_url,
       start,
       end,
       duration,
