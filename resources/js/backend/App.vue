@@ -12,7 +12,7 @@
           Курсы
         </sidebar-link>
         <sidebar-link to="/admin/clients">
-          <template #icon><img svg-inline src="@svg/icons/education.svg"></template>
+          <template #icon><img svg-inline src="@svg/icons/people.svg"></template>
           Клиенты
         </sidebar-link>
       </nav>
