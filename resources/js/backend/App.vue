@@ -9,7 +9,11 @@
         </sidebar-link>
         <sidebar-link to="/admin/courses">
           <template #icon><img svg-inline src="@svg/icons/education.svg"></template>
-          Courses
+          Курсы
+        </sidebar-link>
+        <sidebar-link to="/admin/clients">
+          <template #icon><img svg-inline src="@svg/icons/education.svg"></template>
+          Клиенты
         </sidebar-link>
       </nav>
     </div>

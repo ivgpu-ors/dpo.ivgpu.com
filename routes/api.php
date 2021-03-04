@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\ImagesController;
 use App\Http\Controllers\Api\OptionController;
+use App\Http\Controllers\Api\ClientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,9 +29,10 @@ Route::middleware('can:admin')->name('admin.')->group(function () {
     Route::resource('employees', EmployeeController::class)->except(['create', 'edit']);
 
     Route::post('courses/{course}/toggle', [CourseController::class, 'toggle']);
+
     Route::resource('courses', CourseController::class)->except(['create', 'edit']);
-
     Route::resource('options', OptionController::class)->except(['create', 'edit']);
-
     Route::resource('images', ImagesController::class)->except(['create', 'edit']);
+
+    Route::get('clients', [ClientController::class, 'index']);
 });
