@@ -22,7 +22,20 @@ export default defineComponent({
 
     const initEditor = (el: HTMLElement) => {
       const editor = new MediumEditor(el, {
-        placeholder: false
+        placeholder: false,
+        toolbar: {
+          buttons: [
+            'h2',
+            'anchor',
+            'bold',
+            'italic',
+            'justifyLeft',
+            'justifyCenter',
+            'justifyRight',
+            'unorderedlist',
+            'orderedlist',
+          ]
+        }
       });
 
       editor.subscribe('editableInput', () => {
