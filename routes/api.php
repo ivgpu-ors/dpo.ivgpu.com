@@ -38,4 +38,4 @@ Route::middleware('can:admin')->name('admin.')->group(function () {
     Route::get('clients', [ClientController::class, 'index']);
 });
 
-Route::get('courses', CoursesController::class);
+Route::get('user-courses', CoursesController::class);
