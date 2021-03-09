@@ -4,12 +4,14 @@
                    :image="url($course->image->image_src)">
 
 <div itemscope itemtype="http://schema.org/Course">
+  <meta itemprop="image" content="{{ asset($course->image->image_src) }}">
 
   <header class="relative text-light lg:h-96">
     <img src="{{ $course->image->image_src }}" srcset="{{ $course->image->image_srcset }}"
          sizes="{{ $course->image->image_sizes }}"
          aria-hidden="true" alt=""
          class="w-full h-full absolute object-cover">
+
 
     <div class="relative bg-dark bg-opacity-50 h-full lg:flex flex-col justify-center">
       <div class="container lg:max-w-2xl px-4 py-6">
