@@ -3,12 +3,7 @@
                    :description="exert($course->description)"
                    :image="url($course->image->image_src)">
 
-  <x-slot name="meta">
-    <x-meta-schema type="Course"
-                   :name="$course->name"
-                   :description="exert($course->description)"
-                   :schema="config('meta.schema.course')"/>
-  </x-slot>
+<div itemscope itemtype="http://schema.org/Course">
 
   <header class="relative text-light lg:h-96">
     <img src="{{ $course->image->image_src }}" srcset="{{ $course->image->image_srcset }}"
@@ -18,7 +13,7 @@
 
     <div class="relative bg-dark bg-opacity-50 h-full lg:flex flex-col justify-center">
       <div class="container lg:max-w-2xl px-4 py-6">
-        <h1 class="text-2xl lg:text-4xl mb-8 lg:mb-12">{{ $course->name }}</h1>
+        <h1 class="text-2xl lg:text-4xl mb-8 lg:mb-12" itemprop="name">{{ $course->name }}</h1>
         <div class="lg:flex justify-between">
 
           <x-courses.duration :duration="$course->duration" class="mb-6" />
@@ -30,8 +25,14 @@
   </header>
 
   <div class="container px-4 py-6">
+    <div itemprop="provider" itemscope itemtype="http://schema.org/Organization" style="display: none">
+      <meta itemprop="name" content="ФГБОУ ВО «ИВГПУ»" />
+      <meta itemprop="sameAs" content="https://ivgpu.com" />
+    </div>
     <h2>О курсе</h2>
-    {!! $course->description !!}
+    <div itemprop="description">
+      {!! $course->description !!}
+    </div>
 
     <h2 class="mt-8">Программа курса</h2>
     {!! $course->program !!}
@@ -71,4 +72,7 @@
       @endforeach
     @endif
   </div>
+
+</div>
+
 </x-layouts.default>
