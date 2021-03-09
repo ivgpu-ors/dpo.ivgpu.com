@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCourseRequest;
+use App\Http\Requests\UpdateCourseRequest;
 use App\Http\Resources\CourseResource;
 use App\Models\Course;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
@@ -65,11 +65,11 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UpdateCourseRequest $request
      * @param Course $course
      * @return JsonResponse
      */
-    public function update(Request $request, Course $course): JsonResponse
+    public function update(UpdateCourseRequest $request, Course $course): JsonResponse
     {
         $options = [];
         foreach ($request->post('options') as $o) {
