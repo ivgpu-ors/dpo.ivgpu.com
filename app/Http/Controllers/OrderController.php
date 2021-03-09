@@ -37,8 +37,13 @@ class OrderController extends Controller
         }
     }
 
-    public function fail()
+    public function fail(Request $request)
     {
-        return redirect('/')->with('error', 'Что-то пошло не так.');
+        $orderId = $request->get('orderId');
+        $order = Order::firstWhere('external_id', $orderId);
+
+        $newOrder = $this->orderService->fail($order);
+        $location = $this->orderService->registerOrder($newOrder);
+        return redirect($location);
     }
 }

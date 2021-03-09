@@ -96,8 +96,35 @@ class OrderService
         return false;
     }
 
-    public function fail()
+    /**
+     * @param Order $order
+     * @return Order
+     * @throws \Throwable
+     */
+    public function remake(Order $order): Order
     {
-        return redirect('/')->with('error', 'Ошибка обработки платежа');
+        $newOrder = self::makeOrder($order->user_id, $order->course, $order->option, $order->price);
+        $order->delete();
+
+        return $newOrder;
+    }
+
+    /**
+     * @param Order $order
+     * @return Order|null
+     */
+    public function fail(Order $order): ?Order
+    {
+        $result = $this->sber->getOrderStatus($order->external_id);
+
+        if (\Voronkovich\SberbankAcquiring\OrderStatus::isDeclined($result['orderStatus'])) {
+            try {
+                return $this->remake($order);
+            } catch (\Throwable $e) {
+                return null;
+            }
+        }
+
+        return null;
     }
 }
