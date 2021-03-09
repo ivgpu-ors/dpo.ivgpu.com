@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\CoursesController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\ImagesController;
 use App\Http\Controllers\Api\OptionController;
@@ -36,3 +37,5 @@ Route::middleware('can:admin')->name('admin.')->group(function () {
 
     Route::get('clients', [ClientController::class, 'index']);
 });
+
+Route::get('courses', CoursesController::class);

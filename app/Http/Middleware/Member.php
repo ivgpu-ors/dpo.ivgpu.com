@@ -39,8 +39,9 @@ class Member
     public function handle(Request $request, Closure $next)
     {
         $user = $request->user();
-        if ($user && !in_array('DPO_MEMBER', $user->roles)) {
-            $user->roles = array_merge($user->roles, ['DPO_MEMBER']);
+        $roles = $user->roles ?? [];
+        if ($user && !in_array('DPO_MEMBER', $roles)) {
+            $user->roles = array_merge($roles, ['DPO_MEMBER']);
             $user->save();
             $this->guard->appendRole('DPO_MEMBER');
         }
