@@ -25,3 +25,14 @@ sudo supervisorctl reread
 sudo supervisorctl update
 sudo supervisorctl start laravel-worker:*
 ```
+
+Миграции:
+```bash
+php artisan queue:table
+php artisan migrate
+```
+
+Изменения в Environment:
+```dotenv
+QUEUE_CONNECTION=database
+```
