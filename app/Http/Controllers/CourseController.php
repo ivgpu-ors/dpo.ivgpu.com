@@ -9,6 +9,17 @@ use App\Services\OrderService;
 
 class CourseController extends Controller
 {
+    private OrderService $service;
+
+    /**
+     * CourseController constructor.
+     * @param OrderService $service
+     */
+    public function __construct(OrderService $service)
+    {
+        $this->service = $service;
+    }
+
     public function show(int $course_id)
     {
         $course = Course::with('teachers')->findOrFail($course_id);
@@ -32,7 +43,7 @@ class CourseController extends Controller
         $option = $course->options()->where('option_id', $option_id)->first();
         $price = $option->pivot->price;
 
-        $order = OrderService::makeOrder($request->user()->id, $course, $option, $price);
+        $order = $this->service->makeOrder($request->user()->id, $course, $option, $price);
 
         if ($order->status->equals(OrderStatus::paid())) {
             return redirect(route('account.orders'))->with('success_paid', true);

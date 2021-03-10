@@ -37,7 +37,7 @@ class OrderService
      * @param int $price
      * @return Order
      */
-    public static function makeOrder(string $user_id, Course $course, Option $option, int $price): Order
+    public function makeOrder(string $user_id, Course $course, Option $option, int $price): Order
     {
 
         $order = Order::firstOrNew([
@@ -48,7 +48,7 @@ class OrderService
 
         $order->price = $price;
         if ($price === 0 && $order->status->equals(OrderStatus::draft())) {
-            $order->status = OrderStatus::paid();
+            $order->pay();
         }
 
         $order->save();
@@ -86,8 +86,7 @@ class OrderService
         $result = $this->sber->getOrderStatus($order->external_id);
 
         if (\Voronkovich\SberbankAcquiring\OrderStatus::isDeposited($result['orderStatus'])) {
-            $order->status = OrderStatus::paid();
-            $order->save();
+            $order->pay();
             return true;
         }
 
@@ -103,7 +102,7 @@ class OrderService
      */
     public function remake(Order $order): Order
     {
-        $newOrder = self::makeOrder($order->user_id, $order->course, $order->option, $order->price);
+        $newOrder = $this->makeOrder($order->user_id, $order->course, $order->option, $order->price);
         $order->delete();
 
         return $newOrder;

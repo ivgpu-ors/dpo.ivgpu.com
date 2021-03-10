@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Casts\OrderStatusCast;
+use App\Enums\OrderStatus;
+use App\Events\OrderPayed;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,14 +18,14 @@ use Illuminate\Support\Carbon;
  * @property int $course_id
  * @property int $option_id
  * @property int $price
- * @property \App\Enums\OrderStatus $status
+ * @property OrderStatus $status
  * @property string|null $external_id
  * @property string|null $pay_url
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read \App\Models\Course $course
- * @property-read \App\Models\Option $option
- * @property-read \App\Models\User $user
+ * @property-read Course $course
+ * @property-read Option $option
+ * @property-read User $user
  * @method static Builder|Order newModelQuery()
  * @method static Builder|Order newQuery()
  * @method static Builder|Order query()
@@ -51,4 +53,13 @@ class Order extends Model
     protected $casts = [
         'status' => OrderStatusCast::class
     ];
+
+    public function pay()
+    {
+        $this->status = OrderStatus::paid();
+        if ($this->save()) {
+            event(new OrderPayed($this));
+        }
+
+    }
 }

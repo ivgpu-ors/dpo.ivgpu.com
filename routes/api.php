@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\Api\CourseController;
-use App\Http\Controllers\Api\CoursesController;
+use App\Http\Controllers\Api\MoodleEnrolController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\ImagesController;
 use App\Http\Controllers\Api\OptionController;
 use App\Http\Controllers\Api\ClientController;
+use App\Http\Controllers\Api\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,8 @@ Route::middleware('can:admin')->name('admin.')->group(function () {
     Route::resource('images', ImagesController::class)->except(['create', 'edit']);
 
     Route::get('clients', [ClientController::class, 'index']);
+
+    Route::post('orders/{order}', [OrderController::class, 'delete'])->name('orders.delete');
 });
 
-Route::get('user-courses', CoursesController::class);
+Route::get('user-courses', MoodleEnrolController::class);

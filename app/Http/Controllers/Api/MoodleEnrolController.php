@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class CoursesController extends Controller
+class MoodleEnrolController extends Controller
 {
     /**
      * @var string
