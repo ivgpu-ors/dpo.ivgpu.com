@@ -2,7 +2,7 @@
 <article class="p-2 shadow-md ring-1 ring-gray-400 rounded-md flex items-start mb-6">
   <div class="flex-grow">
     <h1 class="text-xl">
-      <a href="{{ route('courses.show', $order) }}">{{ $order->course->name }}</a>
+      <a href="{{ route('courses.show', $order->course) }}">{{ $order->course->name }}</a>
     </h1>
     <div class="flex flex-wrap lg:flex-nowrap">
 
